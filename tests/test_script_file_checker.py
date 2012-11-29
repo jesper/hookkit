@@ -101,7 +101,7 @@ class test_script_file_checker(unittest.TestCase):
 
     def test_invalid_file_checker_program(self):
         test_helpers.deployHookkit('test_script_file_checker_config_invalid'
-                                      '_file_checker_program.json')
+                                   '_file_checker_program.json')
 
         os.system(('echo "print "valid indentation rocks"" >> ' +
                   test_helpers.repo_checkout + '/test_code.py'))

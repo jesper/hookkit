@@ -56,8 +56,7 @@ def trigger_scripts(old_sha1, new_sha1, ref):
 # FIXME: This feels really wrong, but I'm not sure what I should do instead.
 #        I'll do this for now, until I can think of something better.
 #        (or it starts causing problems)
-        old_sha1 = Hookkit.run_git_command(['merge-base', new_sha1,
-                                               'master'])
+        old_sha1 = Hookkit.run_git_command(['merge-base', new_sha1, 'master'])
         old_sha1 = old_sha1.rstrip()
 
     failed = False

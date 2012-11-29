@@ -30,8 +30,8 @@ class block_duplicate_commit_message(HookScript):
 
         for sha1 in sha1s:
             commit_message = Hookkit.run_git_command(['log', '-1',
-                                                        '--format=%s%n%b',
-                                                        sha1])
+                                                      '--format=%s%n%b',
+                                                      sha1])
 
 # 1) Check the staged commits if they have a duplicate commit message
             other_sha1s = [e for e in sha1s if not e == sha1]
@@ -52,8 +52,8 @@ class block_duplicate_commit_message(HookScript):
                 grep_prefix = '/'
 
             match_sha1s = Hookkit.run_git_command(['log', '--format=%H',
-                                                      '--grep=' + grep_prefix +
-                                                      '^%s$' % commit_message])
+                                                   '--grep=' + grep_prefix +
+                                                   '^%s$' % commit_message])
 
             match_sha1s = filter(None, match_sha1s.split('\n'))
 
