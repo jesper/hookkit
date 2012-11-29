@@ -1,0 +1,22 @@
+{
+  "hooks": {
+    "pre-receive": {
+      "Contains bar": {
+        "script":"scan_commit_field",
+        "error_message":"Commit message does not contain 'bar'",
+        "args":"message (bar)",
+        "frequency":"each_commit",
+        "mode":"hookkit"
+      },
+      "Contains foo": {
+        "script":"scan_commit_field",
+        "error_message":"Commit message does not contain 'foo'",
+        "args":"message (foo)",
+        "frequency":"each_commit",
+        "mode":"hookkit"
+      }
+
+    }
+  }
+}
+

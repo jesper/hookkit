@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "pre-receive": {
+      "Hello world": {
+        "script":"hello_world.py",
+        "args":"",
+        "frequency":"every_commit"
+      },
+      "Hola mundo": {
+        "script":"hola_mundo.py",
+        "args":"hola",
+        "frequency":""
+      }
+    },
+    "post-receive": {
+    }
+  }
+}
+

@@ -1,0 +1,43 @@
+{
+  "hooks": {
+    "update": {
+      "Redmine Issue ID Scan": {
+        "script":"scan_commit_field",
+        "error_message":"Commit message does not contain an issue ID.",
+        "args":"message (^|\\s)#(\\d+)(\\s|$)",
+        "frequency":"each_commit",
+        "mode":"hookkit"
+      },
+      "Pyflakes Code Check": {
+        "script":"file_checker",
+        "error_message":"Code failed the Pyflakes code check",
+        "args":"\\.py$ pyflakes",
+        "frequency":"last_commit",
+        "mode":"hookkit"
+      },
+      "Email Whitelist": {
+        "script":"scan_commit_field",
+        "error_message":"Commit author e-mail address is not in the whitelist",
+        "args":"author_email (developer1|developer2|developern)@company.com",
+        "frequency":"each_commit",
+        "mode":"hookkit"
+      },
+      "Block Duplicate Commit Message": {
+        "script":"block_duplicate_commit_message",
+        "error_message":"Duplicate commit messages found. Be more creative and descriptive!",
+        "frequency":"last_commit",
+        "mode":"hookkit"
+      }
+    },
+    "post-receive": {
+      "Notify Redmine": {
+        "script":"ping_url",
+        "error_message":"Unable to notify redmine.",
+        "args":"https://company.com/redmine/sys/fetch_changesets?key=foobar",
+        "frequency":"last_commit",
+        "mode":"hookkit"
+      }
+    }
+  }
+}
+

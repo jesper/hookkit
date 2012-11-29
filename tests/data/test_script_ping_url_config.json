@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "post-receive": {
+      "Notify Redmine": {
+        "script":"ping_url",
+        "error_message":"Unable to notify redmine.",
+        "args":"http://127.0.0.1:4891",
+        "frequency":"last_commit",
+        "mode":"hookkit"
+      }
+    }
+  }
+}
+

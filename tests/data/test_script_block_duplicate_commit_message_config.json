@@ -1,0 +1,13 @@
+{
+  "hooks": {
+    "pre-receive": {
+      "Block Duplicate Commit Message": {
+        "script":"block_duplicate_commit_message",
+        "error_message":"Duplicate commit messages found. Be more creative and descriptive!",
+        "frequency":"last_commit",
+        "mode":"hookkit"
+      }
+    }
+  }
+}
+

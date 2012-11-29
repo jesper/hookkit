@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "pre-receive": {
+      "Redmine Issue ID": {
+        "script":"scan_commit_field",
+        "error_message":"Commit message does not contain an issue ID! (#123)",
+        "args":"message (^|\\s)#(\\d+)(\\s|$)",
+        "frequency":"each_commit",
+        "mode":"hookkit"
+      }
+    }
+  }
+}
+

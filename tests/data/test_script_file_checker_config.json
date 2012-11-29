@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "pre-receive": {
+      "PEP8 Checker": {
+        "script":"file_checker",
+        "error_message":"Not well-formed Python code",
+        "args":"^(?!.*blacklist).*\\.py$ pep8",
+        "frequency":"last_commit",
+        "mode":"hookkit"
+      }
+    }
+  }
+}
+
