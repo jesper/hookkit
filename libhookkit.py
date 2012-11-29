@@ -3,9 +3,8 @@ from subprocess import Popen, PIPE
 import sys
 import os
 
-DEFAULT_CONFIG_FILE_PATH = (os.path.dirname(__file__) +
-                            '/hookkit_config.json')
-
+DEFAULT_CONFIG_FILE_PATH = (os.path.dirname(os.path.abspath(__file__)) +
+                           '/hookkit_config.json')
 
 class Hookkit:
 
