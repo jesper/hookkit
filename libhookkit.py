@@ -21,10 +21,17 @@ class Hookkit:
 
     @staticmethod
     def get_sha1_list_between_commits(old_sha1, new_sha1):
+
+        if old_sha1 == new_sha1:
+            return [new_sha1]
+
         sha1s = Hookkit.run_git_command(['log', '--pretty=format:%H',
                                          '--no-merges',
                                          old_sha1 + '..' + new_sha1])
-        return sha1s.split('\n')
+        if sha1s == '':
+            return None
+        else:
+            return sha1s.split('\n')
 
     @staticmethod
     def get_commit_author_email(sha1):

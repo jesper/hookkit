@@ -25,7 +25,6 @@ class block_duplicate_commit_message(HookScript):
         return False
 
     def run(self, old_sha1, new_sha1, ref):
-
         sha1s = Hookkit.get_sha1_list_between_commits(old_sha1, new_sha1)
 
         for sha1 in sha1s:
@@ -35,7 +34,6 @@ class block_duplicate_commit_message(HookScript):
 
 # 1) Check the staged commits if they have a duplicate commit message
             other_sha1s = [e for e in sha1s if not e == sha1]
-
             found = self.scan_sha1_list_for_message(other_sha1s,
                                                     commit_message)
 
@@ -56,6 +54,11 @@ class block_duplicate_commit_message(HookScript):
                                                    '^%s$' % commit_message])
 
             match_sha1s = filter(None, match_sha1s.split('\n'))
+
+            try:
+                match_sha1s.remove(sha1)
+            except:
+                pass
 
 # sha1s may contain partial matches - refine it down to exact matches
             for _sha1 in match_sha1s:
