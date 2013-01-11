@@ -49,12 +49,17 @@ class block_duplicate_commit_message(HookScript):
             if '\n' in commit_message:
                 grep_prefix = '/'
 
+            # This is to fix a problem where * was causing problems with
+            # the shell git command. I tried re.escape, but that caused the
+            # "push inbetween" test to fail. I don't have time to investigate
+            # further, so I'll stick with this hotfix for now.
+            commit_message = commit_message.replace('*', '\*')
+
             match_sha1s = Hookkit.run_git_command(['log', '--format=%H',
                                                    '--grep=' + grep_prefix +
                                                    '^%s$' % commit_message])
 
             match_sha1s = filter(None, match_sha1s.split('\n'))
-
             try:
                 match_sha1s.remove(sha1)
             except:

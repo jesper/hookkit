@@ -36,6 +36,36 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         shutil.rmtree(test_helpers.repo_server)
         shutil.rmtree(test_helpers.repo_checkout)
 
+    def test_invalid_message_with_special_characters(self):
+        test_helpers.deployHookkit(self.CONFIG_FILE)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.txt'))
+
+        test_helpers.gitCommitWithMessage("adding **kwargs support for the "
+                                          "service and unit tests #363")
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.txt'))
+
+        test_helpers.gitCommitWithMessage("adding **kwargs support for the "
+                                          "service and unit tests #363")
+
+        self.assertFalse(test_helpers.gitPush(),
+                         "Pushing invalid commit message with special chars")
+
+    def test_valid_message_with_special_characters(self):
+        test_helpers.deployHookkit(self.CONFIG_FILE)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.txt'))
+
+        test_helpers.gitCommitWithMessage("adding **kwargs support for the "
+                                          "service and unit tests #363")
+
+        self.assertTrue(test_helpers.gitPush(),
+                        "Pushing valid commit message with special characters")
+
     def test_valid_message(self):
         test_helpers.deployHookkit(self.CONFIG_FILE)
 
@@ -89,7 +119,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
 
         test_helpers.gitCommitWithMessage("I'm a future invalid commit!")
         self.assertFalse(test_helpers.gitPush(),
-                         'Pushing invalid commit messages')
+                         'Pushing invalid commit messages after push')
 
     def test_commit_already_exists_in_other_branch(self):
         test_helpers.deployHookkit(self.CONFIG_FILE)
