@@ -47,6 +47,11 @@ def load_scripts():
 
 
 def trigger_scripts(old_sha1, new_sha1, ref):
+# We only care about branches
+# TBD: Add hook support for things other than branches
+    if not ref.startswith('refs/heads'):
+        return
+
 # Delete branch
     if new_sha1 == '0000000000000000000000000000000000000000':
         return

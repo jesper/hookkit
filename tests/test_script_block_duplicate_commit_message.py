@@ -121,6 +121,53 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         self.assertFalse(test_helpers.gitPush(),
                          'Pushing invalid commit messages after push')
 
+    def test_commit_already_exists_in_other_branch_after_merge(self):
+        test_helpers.deployHookkit(self.CONFIG_FILE)
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.txt'))
+
+        test_helpers.gitCommitWithMessage("I'm a valid commit!")
+        test_helpers.gitPush()
+
+        test_helpers.runCommandInPath('git checkout -b test',
+                                      test_helpers.repo_checkout)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.txt'))
+
+        test_helpers.gitCommitWithMessage("I'm a valid commit as well")
+
+        result = test_helpers.runCommandInPath('git push origin test',
+                                               test_helpers.repo_checkout)
+
+        self.assertTrue(result,
+                        "Pushing sha1 that already exists in other branch")
+
+        test_helpers.runCommandInPath('git checkout -b master',
+                                      test_helpers.repo_checkout)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.txt'))
+
+        test_helpers.gitCommitWithMessage("I'm a valid commit also!")
+        test_helpers.gitPush()
+
+        test_helpers.runCommandInPath('git checkout -b test',
+                                      test_helpers.repo_checkout)
+
+
+        test_helpers.runCommandInPath('git rebase master',
+                                      test_helpers.repo_checkout)
+
+
+        result = test_helpers.runCommandInPath('git push origin test',
+                                               test_helpers.repo_checkout)
+
+        self.assertTrue(result,
+                        "Pushing sha1 that already exists in other branch")
+
+
+
     def test_commit_already_exists_in_other_branch(self):
         test_helpers.deployHookkit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +

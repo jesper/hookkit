@@ -93,5 +93,14 @@ class test_hookkit(unittest.TestCase):
         self.assertTrue(del_result, "Push to delete branch should work")
 
 
+    def test_push_tag(self):
+        test_helpers.deployHookkit('test_hookkit_config.json')
+        test_helpers.runCommandInPath('git tag test_tag',
+                                      test_helpers.repo_checkout)
+        result = test_helpers.runCommandInPath('git push --tags',
+                                               test_helpers.repo_checkout)
+
+        self.assertTrue(result, "Pushing tags should work")
+
 if __name__ == '__main__':
     unittest.main()
