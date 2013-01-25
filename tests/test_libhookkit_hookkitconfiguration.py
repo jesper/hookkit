@@ -12,7 +12,7 @@ class test_libhookkit_hookkitconfiguration(unittest.TestCase):
     CONFIG_PREFIX = 'data/test_libhookkit_hookkitconfiguration_'
 
     def setUp(self):
-        self.config = libhookkit.HookkitConfiguration()
+        self.config = libhookkit.LibHookKitConfiguration()
 
     def test_load_scripts_for_hook(self):
         results = self.config.load_entries_for_hook('pre-receive',

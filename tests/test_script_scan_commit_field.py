@@ -37,7 +37,7 @@ class test_script_scan_commit_field(unittest.TestCase):
         shutil.rmtree(test_helpers.repo_checkout)
 
     def test_valid_message(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
@@ -47,7 +47,7 @@ class test_script_scan_commit_field(unittest.TestCase):
                         "Pushing a valid commit messages")
 
     def test_invalid_message(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
@@ -57,7 +57,7 @@ class test_script_scan_commit_field(unittest.TestCase):
                          'Pushing invalid commit messages')
 
     def test_tricky_invalid_message(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
@@ -67,7 +67,7 @@ class test_script_scan_commit_field(unittest.TestCase):
                          'Pushing invalid commit messages')
 
     def test_combined_invalid_message(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
         test_helpers.gitCommitWithMessage("I'm a valid commit! #123")

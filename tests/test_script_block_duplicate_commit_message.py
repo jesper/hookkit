@@ -37,7 +37,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         shutil.rmtree(test_helpers.repo_checkout)
 
     def test_invalid_message_with_special_characters(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
@@ -55,7 +55,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
                          "Pushing invalid commit message with special chars")
 
     def test_valid_message_with_special_characters(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
@@ -67,7 +67,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
                         "Pushing valid commit message with special characters")
 
     def test_valid_message(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
@@ -83,7 +83,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
                         "Pushing valid commit messages")
 
     def test_invalid_message(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
 
@@ -101,7 +101,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
                          'Pushing invalid commit messages')
 
     def test_invalid_message_inbetween_push(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
 
@@ -122,7 +122,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
                          'Pushing invalid commit messages after push')
 
     def test_commit_already_exists_in_other_branch_after_merge(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
 
@@ -155,10 +155,8 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         test_helpers.runCommandInPath('git checkout -b test',
                                       test_helpers.repo_checkout)
 
-
         test_helpers.runCommandInPath('git rebase master',
                                       test_helpers.repo_checkout)
-
 
         result = test_helpers.runCommandInPath('git push origin test',
                                                test_helpers.repo_checkout)
@@ -166,10 +164,8 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         self.assertTrue(result,
                         "Pushing sha1 that already exists in other branch")
 
-
-
     def test_commit_already_exists_in_other_branch(self):
-        test_helpers.deployHookkit(self.CONFIG_FILE)
+        test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))
 

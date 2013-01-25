@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 import libhookkit
 
-config = libhookkit.HookkitConfiguration()
+config = libhookkit.LibHookKitConfiguration()
 
 hooks = config.get_available_hooks()
 

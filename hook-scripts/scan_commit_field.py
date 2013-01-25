@@ -8,7 +8,7 @@ import sys
 import re
 
 sys.path.append('..')
-from libhookkit import Hookkit, HookScript
+from libhookkit import LibHookKit, HookScript
 
 
 class scan_commit_field(HookScript):
@@ -19,9 +19,9 @@ class scan_commit_field(HookScript):
         field_to_scan = args[0]
 
         if field_to_scan == 'message':
-            field_value = Hookkit.get_commit_message(sha1)
+            field_value = LibHookKit.get_commit_message(sha1)
         elif field_to_scan == 'author_email':
-            field_value = Hookkit.get_commit_author_email(sha1)
+            field_value = LibHookKit.get_commit_author_email(sha1)
 
 # Remove the field to scan, and joint the rest of the args back together
         args.pop(0)

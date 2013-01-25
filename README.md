@@ -12,6 +12,9 @@ _hookkit_config.json_
 _hookkit.py_
   * Actual hook "dispatcher"
 
+_libhookkit.py_
+  * Configuration parsing & hook support
+
 _link-hooks.py_
   * Creates symlinks for all the hooks defined in hookkit.config to point to hook.py
 

@@ -7,7 +7,7 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
 import libhookkit
-from libhookkit import Hookkit
+from libhookkit import LibHookKit
 
 scripts_to_run_each_commit = []
 scripts_to_run_on_last_commit = []
@@ -25,7 +25,7 @@ def get_active_hook():
 def load_scripts():
     active_hook = get_active_hook()
 
-    config = libhookkit.HookkitConfiguration()
+    config = libhookkit.LibHookKitConfiguration()
     scripts_to_execute = config.load_entries_for_hook(active_hook)
 
     if len(scripts_to_execute) == 0:
@@ -61,7 +61,8 @@ def trigger_scripts(old_sha1, new_sha1, ref):
 # FIXME: This feels really wrong, but I'm not sure what I should do instead.
 #        I'll do this for now, until I can think of something better.
 #        (or it starts causing problems)
-        old_sha1 = Hookkit.run_git_command(['merge-base', new_sha1, 'master'])
+        old_sha1 = LibHookKit.run_git_command(['merge-base', new_sha1,
+                                               'master'])
         old_sha1 = old_sha1.rstrip()
 
     failed = False
@@ -77,7 +78,7 @@ def trigger_scripts(old_sha1, new_sha1, ref):
 
     print '* Checks: ' + script_names + '\n'
 
-    for sha1 in Hookkit.get_sha1_list_between_commits(old_sha1, new_sha1):
+    for sha1 in LibHookKit.get_sha1_list_between_commits(old_sha1, new_sha1):
         for script in scripts_to_run_each_commit:
             if not script.run(sha1):
                 print '\t!!! Fail: ' + sha1 + ' - ' + script.error_message

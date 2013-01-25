@@ -35,7 +35,7 @@ class test_script_ping_url(unittest.TestCase):
         shutil.rmtree(test_helpers.repo_checkout)
 
     def test_notification(self):
-        test_helpers.deployHookkit('test_script_ping_url_config.json')
+        test_helpers.deployHookKit('test_script_ping_url_config.json')
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
                    '/testfile.txt'))

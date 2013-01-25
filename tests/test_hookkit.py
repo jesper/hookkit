@@ -34,7 +34,7 @@ class test_hookkit(unittest.TestCase):
         shutil.rmtree(test_helpers.repo_checkout)
 
     def test_multiple_same_scripts_for_one_hook_valid_second_script(self):
-        test_helpers.deployHookkit('test_hookkit_config.json')
+        test_helpers.deployHookKit('test_hookkit_config.json')
 
         os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
         test_helpers.gitCommitWithMessage('Test message that should pass '
@@ -45,7 +45,7 @@ class test_hookkit(unittest.TestCase):
                                                  'for a hook - missing foo')
 
     def test_multiple_same_scripts_for_one_hook_valid_first_script(self):
-        test_helpers.deployHookkit('test_hookkit_config.json')
+        test_helpers.deployHookKit('test_hookkit_config.json')
 
         os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
         test_helpers.gitCommitWithMessage('Test message that should pass '
@@ -56,7 +56,7 @@ class test_hookkit(unittest.TestCase):
                                                  'for a hook - missing bar')
 
     def test_multiple_same_scripts_both_valid(self):
-        test_helpers.deployHookkit('test_hookkit_config.json')
+        test_helpers.deployHookKit('test_hookkit_config.json')
 
         os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
         test_helpers.gitCommitWithMessage('Test message that should pass '
@@ -66,7 +66,7 @@ class test_hookkit(unittest.TestCase):
                                                 'be valid for both hooks')
 
     def test_multiple_same_scripts_both_invalid(self):
-        test_helpers.deployHookkit('test_hookkit_config.json')
+        test_helpers.deployHookKit('test_hookkit_config.json')
 
         os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
         test_helpers.gitCommitWithMessage('Test message that should fail both '
@@ -77,7 +77,7 @@ class test_hookkit(unittest.TestCase):
                                                  'hooks')
 
     def test_push_to_branch(self):
-        test_helpers.deployHookkit('test_hookkit_config.json')
+        test_helpers.deployHookKit('test_hookkit_config.json')
         os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
         test_helpers.runCommandInPath('git checkout -b test_branch',
                                       test_helpers.repo_checkout)
@@ -92,9 +92,8 @@ class test_hookkit(unittest.TestCase):
                                                    test_helpers.repo_checkout)
         self.assertTrue(del_result, "Push to delete branch should work")
 
-
     def test_push_tag(self):
-        test_helpers.deployHookkit('test_hookkit_config.json')
+        test_helpers.deployHookKit('test_hookkit_config.json')
         test_helpers.runCommandInPath('git tag test_tag',
                                       test_helpers.repo_checkout)
         result = test_helpers.runCommandInPath('git push --tags',

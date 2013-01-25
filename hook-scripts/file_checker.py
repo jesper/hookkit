@@ -13,7 +13,7 @@ import tempfile
 import subprocess
 
 sys.path.append('..')
-from libhookkit import HookScript, Hookkit
+from libhookkit import HookScript, LibHookKit
 
 
 class file_checker(HookScript):
@@ -22,15 +22,15 @@ class file_checker(HookScript):
         file_regexp = self.regexp()
         file_checker = self.checker()
 
-        files = Hookkit.get_files_affected_between_two_commits(old_sha1,
-                                                               new_sha1)
+        files = LibHookKit.get_files_affected_between_two_commits(old_sha1,
+                                                                  new_sha1)
 
         for file_path in files:
             if re.search(file_regexp, file_path):
                 temp_path = tempfile.mkdtemp()
 
-                Hookkit.extract_file_at_sha1_to_path(file_path, new_sha1,
-                                                     temp_path)
+                LibHookKit.extract_file_at_sha1_to_path(file_path, new_sha1,
+                                                        temp_path)
 
 #File may have been deleted in git - verify it's actually there.
                 if not os.path.exists(temp_path + '/' + file_path):

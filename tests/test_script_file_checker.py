@@ -36,7 +36,7 @@ class test_script_file_checker(unittest.TestCase):
         shutil.rmtree(test_helpers.repo_checkout)
 
     def test_valid_code(self):
-        test_helpers.deployHookkit('test_script_file_checker_config.json')
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "print "valid indentation rocks"" >> ' +
                   test_helpers.repo_checkout + '/test_code.py'))
@@ -51,7 +51,7 @@ class test_script_file_checker(unittest.TestCase):
                         'Pushing a well formatted Python file')
 
     def test_invalid_code_that_shouldnt_be_scanned(self):
-        test_helpers.deployHookkit('test_script_file_checker_config.json')
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "    print "invalid indent - nobody checks it"" >> ' +
                   test_helpers.repo_checkout + '/test_code.cpp'))
@@ -67,7 +67,7 @@ class test_script_file_checker(unittest.TestCase):
                         "which shouldn't be scanned")
 
     def test_invalid_code(self):
-        test_helpers.deployHookkit('test_script_file_checker_config.json')
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "   print "invalid indent makes snakes cry"" >> ' +
                   test_helpers.repo_checkout + '/test_code.py'))
@@ -82,7 +82,7 @@ class test_script_file_checker(unittest.TestCase):
                          "Pushing a badly formatted Python file")
 
     def test_invalid_code_in_blacklisted_dir(self):
-        test_helpers.deployHookkit('test_script_file_checker_config.json')
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system('mkdir ' + test_helpers.repo_checkout + '/blacklist')
 
@@ -100,7 +100,7 @@ class test_script_file_checker(unittest.TestCase):
                         " a blacklisted directory should work")
 
     def test_invalid_file_checker_program(self):
-        test_helpers.deployHookkit('test_script_file_checker_config_invalid'
+        test_helpers.deployHookKit('test_script_file_checker_config_invalid'
                                    '_file_checker_program.json')
 
         os.system(('echo "print "valid indentation rocks"" >> ' +

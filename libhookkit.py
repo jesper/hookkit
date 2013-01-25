@@ -7,7 +7,7 @@ DEFAULT_CONFIG_FILE_PATH = (os.path.dirname(os.path.abspath(__file__)) +
                             '/hookkit_config.json')
 
 
-class Hookkit:
+class LibHookKit:
 
     @staticmethod
     def run_git_command(args):
@@ -25,9 +25,9 @@ class Hookkit:
         if old_sha1 == new_sha1:
             return [new_sha1]
 
-        sha1s = Hookkit.run_git_command(['log', '--pretty=format:%H',
-                                         '--no-merges',
-                                         old_sha1 + '..' + new_sha1])
+        sha1s = LibHookKit.run_git_command(['log', '--pretty=format:%H',
+                                            '--no-merges',
+                                            old_sha1 + '..' + new_sha1])
         if sha1s == '':
             return None
         else:
@@ -35,18 +35,18 @@ class Hookkit:
 
     @staticmethod
     def get_commit_author_email(sha1):
-        return Hookkit.run_git_command(['log', '-1',
-                                        '--pretty=format:%ae', sha1])
+        return LibHookKit.run_git_command(['log', '-1',
+                                           '--pretty=format:%ae', sha1])
 
     @staticmethod
     def get_commit_message(sha1):
-        return Hookkit.run_git_command(['log', '-1',
-                                        '--pretty=format:%s\n%b\n%N', sha1])
+        return LibHookKit.run_git_command(['log', '-1',
+                                           '--pretty=format:%s\n%b\n%N', sha1])
 
     @staticmethod
     def get_files_affected_between_two_commits(old_sha1, new_sha1):
-        files_affected = Hookkit.run_git_command(['diff', '--name-only',
-                                                  old_sha1, new_sha1])
+        files_affected = LibHookKit.run_git_command(['diff', '--name-only',
+                                                     old_sha1, new_sha1])
         return files_affected.split('\n')
 
     @staticmethod
@@ -68,7 +68,7 @@ class Hookkit:
         return True
 
 
-class HookkitConfiguration:
+class LibHookKitConfiguration:
 
     def load_json_from_file(self, config_file_path):
         try:
