@@ -68,6 +68,29 @@ class LibHookKit:
         return True
 
 
+    @staticmethod
+    def is_exe(path):
+        return os.path.isfile(path) and os.access(path, os.X_OK)
+
+    @staticmethod
+    def is_program_available(program):
+
+        # "Program finding" code below is based on a Stackoverflow post by Jay:
+        # http://stackoverflow.com/a/377028
+
+        file_path, file_name = os.path.split(program)
+
+        if file_path:
+            if LibHookKit.is_exe(program):
+                return True
+        else:
+            for path in os.environ["PATH"].split(os.pathsep):
+                exe_file = os.path.join(path, program)
+                if LibHookKit.is_exe(exe_file):
+                    return True
+
+        return False
+
 class LibHookKitConfiguration:
 
     def load_json_from_file(self, config_file_path):
