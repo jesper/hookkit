@@ -29,8 +29,8 @@ class file_checker(HookScript):
             if re.search(file_regexp, file_path):
                 temp_path = tempfile.mkdtemp()
 
-                LibHookKit.extract_file_at_sha1_to_path(file_path, new_sha1,
-                                                        temp_path)
+                LibHookKit.extract_file_at_sha1_to_path(temp_path, new_sha1,
+                                                        file_path)
 
 #File may have been deleted in git - verify it's actually there.
                 if not os.path.exists(temp_path + '/' + file_path):

@@ -50,19 +50,40 @@ class LibHookKit:
         return files_affected.split('\n')
 
     @staticmethod
-    def extract_file_at_sha1_to_path(file_name, sha1, path):
-        p = Popen(['git', 'archive', sha1, file_name],
-                  stderr=PIPE, stdout=PIPE)
+    def extract_git_repo(destination, sha1, path=None):
+        command = ['git', 'archive', sha1]
 
-        p2 = Popen(['tar', 'x'], cwd=path, stdin=p.stdout,
+        if path:
+            command.append(path)
+
+        p = Popen(command, stderr=PIPE, stdout=PIPE)
+
+        p2 = Popen(['tar', 'x'], cwd=destination, stdin=p.stdout,
                    stderr=PIPE, stdout=PIPE)
 
         [output, error] = p2.communicate()
 
         if p2.returncode != 0:
-            sys.stderr.write(('Error while trying to extract the file:' +
+            sys.stderr.write(error)
+            return False
+
+        return True
+
+    @staticmethod
+    def extract_file_at_sha1_to_path(destination, sha1, file_name):
+        if not LibHookKit.extract_git_repo(destination, sha1, file_name):
+            sys.stderr.write('Error while trying to extract the file:' +
                               file_name + ' from sha1:' + sha1 + ' to path:' +
-                              path + ':\n' + error + '\n'))
+                              destination + '\n')
+            return False
+
+        return True
+
+    @staticmethod
+    def extract_repo_at_sha1_to_path(destination, sha1):
+        if not LibHookKit.extract_git_repo(destination, sha1):
+            sys.stderr.write('Error while trying to extract the repository ' +
+                             'at sha1:' + sha1 + ' to path:' + path + '\n')
             return False
 
         return True
