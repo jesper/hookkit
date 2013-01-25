@@ -11,6 +11,7 @@ import os
 import re
 import tempfile
 import subprocess
+import shutil
 
 sys.path.append('..')
 from libhookkit import HookScript, LibHookKit
@@ -32,8 +33,10 @@ class file_checker(HookScript):
                 LibHookKit.extract_file_at_sha1_to_path(temp_path, new_sha1,
                                                         file_path)
 
-#File may have been deleted in git - verify it's actually there.
+# File may have been deleted in git - verify it's actually there.
                 if not os.path.exists(temp_path + '/' + file_path):
+                    #FIXME Having this extra rmtree is ugly - refactor!
+                    shutil.rmtree(temp_path)
                     continue
 
                 p = subprocess.Popen([file_checker, file_path], cwd=temp_path,
@@ -41,6 +44,8 @@ class file_checker(HookScript):
                                      stderr=subprocess.PIPE)
 
                 [output, error] = p.communicate()
+
+                shutil.rmtree(temp_path)
 
                 if p.returncode != 0:
                     print output
