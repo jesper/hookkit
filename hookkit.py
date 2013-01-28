@@ -77,11 +77,13 @@ def trigger_scripts(old_sha1, new_sha1, ref):
     script_names = ', '.join(script_names)
 
     print '* Checks: ' + script_names + '\n'
+    sys.stdout.flush()
 
     for sha1 in LibHookKit.get_sha1_list_between_commits(old_sha1, new_sha1):
         for script in scripts_to_run_each_commit:
             if not script.run(sha1):
                 print '\t!!! Fail: ' + sha1 + ' - ' + script.error_message
+                sys.stdout.flush()
                 failed = True
 
 #should pass in a dict of args
@@ -89,6 +91,7 @@ def trigger_scripts(old_sha1, new_sha1, ref):
     for script in scripts_to_run_on_last_commit:
         if not script.run(old_sha1, new_sha1, ref):
             print '!!! Fail: ' + script.error_message
+            sys.stdout.flush()
             failed = True
 
     if failed:
