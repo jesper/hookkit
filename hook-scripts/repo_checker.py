@@ -7,8 +7,6 @@
 #      Author: Jesper Thomschutz (jesper@jespersaur.com)
 
 import sys
-import os
-import re
 import tempfile
 import subprocess
 import shutil
@@ -31,7 +29,8 @@ class repo_checker(HookScript):
         shutil.rmtree(temp_path)
 
         if p.returncode != 0:
-            print  error
+            print output
+            print error
             return False
 
         return True
