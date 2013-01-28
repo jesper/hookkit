@@ -70,7 +70,7 @@ class LibHookKit:
         return True
 
     @staticmethod
-    def extract_file_at_sha1_to_path(destination, sha1, file_name):
+    def extract_file_at_sha1_to_path(file_name, sha1, destination):
         if not LibHookKit.extract_git_repo(destination, sha1, file_name):
             sys.stderr.write('Error while trying to extract the file:' +
                              file_name + ' from sha1:' + sha1 + ' to path:' +
@@ -80,7 +80,7 @@ class LibHookKit:
         return True
 
     @staticmethod
-    def extract_repo_at_sha1_to_path(destination, sha1):
+    def extract_repo_at_sha1_to_path(sha1, destination):
         if not LibHookKit.extract_git_repo(destination, sha1):
             sys.stderr.write('Error while trying to extract the repository ' +
                              'at sha1:' + sha1 + ' to path:' + destination +
