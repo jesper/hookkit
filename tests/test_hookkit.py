@@ -95,7 +95,6 @@ class test_hookkit(unittest.TestCase):
         self.assertTrue(test_helpers.gitPush('origin test_branch'),
                         'Push to a branch should work.')
 
-
     def test_push_delete_branch(self):
         self.test_push_to_branch()
         del_result = test_helpers.runCommandInPath('git push origin '

@@ -116,6 +116,52 @@ class test_script_file_checker(unittest.TestCase):
                          "Pushing a valid commit to a server with and invalid "
                          "file checker configured should fail.")
 
+    def test_move_valid_code(self):
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
+
+        os.system(('echo "print "valid indentation rocks"" >> ' +
+                  test_helpers.repo_checkout + '/test_code.py'))
+
+        test_helpers.runCommandInPath('git add test_code.py',
+                                      test_helpers.repo_checkout)
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'a valid file')
+
+        test_helpers.gitPush()
+
+        test_helpers.runCommandInPath('git mv test_code.py test_code2.py',
+                                      test_helpers.repo_checkout)
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'moving a valid file')
+
+        self.assertTrue(test_helpers.gitPush(),
+                        'Pushing a well formatted Python file that was moved')
+
+    def test_delete_valid_code(self):
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
+
+        os.system(('echo "print "valid indentation rocks"" >> ' +
+                  test_helpers.repo_checkout + '/test_code.py'))
+
+        test_helpers.runCommandInPath('git add test_code.py',
+                                      test_helpers.repo_checkout)
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'a valid file')
+
+        test_helpers.gitPush()
+
+        test_helpers.runCommandInPath('git rm test_code.py',
+                                      test_helpers.repo_checkout)
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'removing a valid file')
+
+        self.assertTrue(test_helpers.gitPush(),
+                        'Pushing a delete of a well formatted Python file')
+
 
 if __name__ == '__main__':
     unittest.main()
