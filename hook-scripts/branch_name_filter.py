@@ -1,5 +1,5 @@
 #   Hook Name: branch_name_filter
-#   Arguments: whitelist-regexp name-filter-regexp
+#   Arguments: name-filter-regexp
 # Description: Useful for enforcing a special branch naming scheme
 #  Suggestion: Run on last_commit as a pre-preceive hook
 #      Author: Jesper Thomschutz (jesper@jespersaur.com)
