@@ -29,7 +29,6 @@ class repo_checker(HookScript):
         shutil.rmtree(temp_path)
 
         if p.returncode != 0:
-            print output
             print error
             return False
 
