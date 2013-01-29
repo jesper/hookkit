@@ -2,6 +2,7 @@ import json
 from subprocess import Popen, PIPE
 import sys
 import os
+import abc
 
 DEFAULT_CONFIG_FILE_PATH = (os.path.dirname(os.path.abspath(__file__)) +
                             '/hookkit_config.json')
@@ -248,6 +249,7 @@ class HookScript(object):
         self.label = label
 
 # Must be re-implemented by hook-scripts - this is what will be called!
+    @abc.abstractmethod
     def run(self):
         print "!! You need to implement run() for" + self.file_name
         return False

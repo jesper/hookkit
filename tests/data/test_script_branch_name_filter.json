@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "pre-receive": {
+      "Branch Name": {
+        "script":"branch_name_filter",
+        "error_message":"Branch name does not match pattern issue#-name-summary",
+        "args":"master|staging|\\d+-(john|joe|jeff)-\\w+",
+        "frequency":"last_commit",
+        "mode":"hookkit"
+      }
+    }
+  }
+}
+

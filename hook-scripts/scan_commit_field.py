@@ -27,7 +27,4 @@ class scan_commit_field(HookScript):
         args.pop(0)
         scan_regexp = ' '.join(args)
 
-        if re.search(scan_regexp, field_value):
-            return True
-        else:
-            return False
+        return re.search(scan_regexp, field_value)
