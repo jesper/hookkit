@@ -85,6 +85,17 @@ class test_hookkit(unittest.TestCase):
         self.assertTrue(test_helpers.gitPush('origin test_branch'),
                         'Push to a branch should work.')
 
+    def test_push_branch_identical_to_master(self):
+        test_helpers.deployHookKit('test_hookkit_config.json')
+        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
+        test_helpers.gitCommitWithMessage('foo bar commit to push to a branch')
+        test_helpers.gitPush()
+        test_helpers.runCommandInPath('git checkout -b test_branch',
+                                      test_helpers.repo_checkout)
+        self.assertTrue(test_helpers.gitPush('origin test_branch'),
+                        'Push to a branch should work.')
+
+
     def test_push_delete_branch(self):
         self.test_push_to_branch()
         del_result = test_helpers.runCommandInPath('git push origin '
