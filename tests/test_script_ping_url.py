@@ -3,42 +3,20 @@
 import unittest
 import sys
 import os
-import shutil
 import socket
 
 sys.path.append("..")
 import test_helpers
+from hook_script_test_case import hook_script_test_case
 
 
-class test_script_ping_url(unittest.TestCase):
-
-    def setUp(self):
-        # Let's set up a base repo
-        repo_original = 'test_original_repo'
-        os.mkdir(repo_original)
-        test_helpers.runCommandInPath('git init', repo_original)
-        test_helpers.runCommandInPath('touch testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git add testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git commit -a -m adding:testfile.txt',
-                                      repo_original)
-
-        # Let's clone a server copy to work from in the future.
-        test_helpers.runCommandInPath(('git clone --bare ' + repo_original +
-                                       ' ' + test_helpers.repo_server), '.')
-        shutil.rmtree(repo_original)
-        test_helpers.runCommandInPath(('git clone ' +
-                                       test_helpers.repo_server +
-                                       ' ' + test_helpers.repo_checkout), '.')
-
-    def tearDown(self):
-        shutil.rmtree(test_helpers.repo_server)
-        shutil.rmtree(test_helpers.repo_checkout)
+class test_script_ping_url(hook_script_test_case):
 
     def test_notification(self):
         test_helpers.deployHookKit('test_script_ping_url_config.json')
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
         test_helpers.gitCommitWithMessage("Testing notifications")
 
  # Fork a listening socket for the hook to push into

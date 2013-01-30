@@ -3,46 +3,19 @@
 import unittest
 import sys
 import os
-import shutil
 
 sys.path.append("..")
 import test_helpers
+from hook_script_test_case import hook_script_test_case
 
 
-class test_script_file_checker(unittest.TestCase):
-
-    def setUp(self):
-#FIXME Should pull this out into the git_helpers
-        # Let's set up a base repo
-        repo_original = 'test_original_repo'
-        os.mkdir(repo_original)
-        test_helpers.runCommandInPath('git init', repo_original)
-        test_helpers.runCommandInPath('touch testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git add testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git commit -a -m adding:testfile.txt',
-                                      repo_original)
-
-        # Let's clone a server copy to work from in the future.
-        test_helpers.runCommandInPath(('git clone --bare ' + repo_original +
-                                       ' ' + test_helpers.repo_server), '.')
-
-        shutil.rmtree(repo_original)
-        test_helpers.runCommandInPath(('git clone ' +
-                                       test_helpers.repo_server +
-                                       ' ' + test_helpers.repo_checkout), '.')
-
-    def tearDown(self):
-        shutil.rmtree(test_helpers.repo_server)
-        shutil.rmtree(test_helpers.repo_checkout)
+class test_script_file_checker(hook_script_test_case):
 
     def test_valid_code(self):
         test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "print "valid indentation rocks"" >> ' +
-                  test_helpers.repo_checkout + '/test_code.py'))
-
-        test_helpers.runCommandInPath('git add test_code.py',
-                                      test_helpers.repo_checkout)
+                  test_helpers.repo_checkout + '/testfile.py'))
 
         test_helpers.gitCommitWithMessage('Testing File Checker with '
                                           'a valid file')
@@ -54,9 +27,9 @@ class test_script_file_checker(unittest.TestCase):
         test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "    print "invalid indent - nobody checks it"" >> ' +
-                  test_helpers.repo_checkout + '/test_code.cpp'))
+                  test_helpers.repo_checkout + '/testfile.cpp'))
 
-        test_helpers.runCommandInPath('git add test_code.cpp',
+        test_helpers.runCommandInPath('git add testfile.cpp',
                                       test_helpers.repo_checkout)
 
         test_helpers.gitCommitWithMessage('Testing File Checker with a '
@@ -70,10 +43,7 @@ class test_script_file_checker(unittest.TestCase):
         test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "   print "invalid indent makes snakes cry"" >> ' +
-                  test_helpers.repo_checkout + '/test_code.py'))
-
-        test_helpers.runCommandInPath('git add test_code.py',
-                                      test_helpers.repo_checkout)
+                  test_helpers.repo_checkout + '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("Testing File Checker with an "
                                           "invalid file")
@@ -87,9 +57,9 @@ class test_script_file_checker(unittest.TestCase):
         os.system('mkdir ' + test_helpers.repo_checkout + '/blacklist')
 
         os.system(('echo "   print "invalid indent makes snakes cry"" >> ' +
-                  test_helpers.repo_checkout + '/blacklist/test_code.py'))
+                  test_helpers.repo_checkout + '/blacklist/testfile.py'))
 
-        test_helpers.runCommandInPath('git add blacklist/test_code.py',
+        test_helpers.runCommandInPath('git add blacklist/testfile.py',
                                       test_helpers.repo_checkout)
 
         test_helpers.gitCommitWithMessage("Testing File Checker with an "
@@ -104,10 +74,7 @@ class test_script_file_checker(unittest.TestCase):
                                    '_file_checker_program.json')
 
         os.system(('echo "print "valid indentation rocks"" >> ' +
-                  test_helpers.repo_checkout + '/test_code.py'))
-
-        test_helpers.runCommandInPath('git add test_code.py',
-                                      test_helpers.repo_checkout)
+                  test_helpers.repo_checkout + '/testfile.py'))
 
         test_helpers.gitCommitWithMessage('Testing File Checker with '
                                           'a valid file but broken checker')
@@ -120,17 +87,14 @@ class test_script_file_checker(unittest.TestCase):
         test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "print "valid indentation rocks"" >> ' +
-                  test_helpers.repo_checkout + '/test_code.py'))
-
-        test_helpers.runCommandInPath('git add test_code.py',
-                                      test_helpers.repo_checkout)
+                  test_helpers.repo_checkout + '/testfile.py'))
 
         test_helpers.gitCommitWithMessage('Testing File Checker with '
                                           'a valid file')
 
         test_helpers.gitPush()
 
-        test_helpers.runCommandInPath('git mv test_code.py test_code2.py',
+        test_helpers.runCommandInPath('git mv testfile.py testfile2.py',
                                       test_helpers.repo_checkout)
 
         test_helpers.gitCommitWithMessage('Testing File Checker with '
@@ -143,17 +107,14 @@ class test_script_file_checker(unittest.TestCase):
         test_helpers.deployHookKit('test_script_file_checker_config.json')
 
         os.system(('echo "print "valid indentation rocks"" >> ' +
-                  test_helpers.repo_checkout + '/test_code.py'))
-
-        test_helpers.runCommandInPath('git add test_code.py',
-                                      test_helpers.repo_checkout)
+                  test_helpers.repo_checkout + '/testfile.py'))
 
         test_helpers.gitCommitWithMessage('Testing File Checker with '
                                           'a valid file')
 
         test_helpers.gitPush()
 
-        test_helpers.runCommandInPath('git rm test_code.py',
+        test_helpers.runCommandInPath('git rm testfile.py',
                                       test_helpers.repo_checkout)
 
         test_helpers.gitCommitWithMessage('Testing File Checker with '

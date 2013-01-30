@@ -4,7 +4,7 @@
       "Turkey Grep Checker": {
         "script":"repo_checker",
         "error_message":"Code contains turkies",
-        "args":"grep -v turkey testfile.txt",
+        "args":"grep -v turkey testfile.py",
         "frequency":"last_commit",
         "mode":"hookkit"
       }

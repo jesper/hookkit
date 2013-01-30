@@ -3,50 +3,27 @@
 import unittest
 import sys
 import os
-import shutil
 
 sys.path.append('..')
 import test_helpers
+from hook_script_test_case import hook_script_test_case
 
 
-class test_script_block_duplicate_commit_message(unittest.TestCase):
+class test_script_block_duplicate_commit_message(hook_script_test_case):
 
     CONFIG_FILE = 'test_script_block_duplicate_commit_message_config.json'
-
-    def setUp(self):
-        # Let's set up a base repo
-        repo_original = 'test_original_repo'
-        os.mkdir(repo_original)
-        test_helpers.runCommandInPath('git init', repo_original)
-        test_helpers.runCommandInPath('touch testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git add testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git commit -a -m adding:testfile.txt',
-                                      repo_original)
-
-# Let's clone a server copy to work from in the future.
-        test_helpers.runCommandInPath(('git clone --bare ' + repo_original +
-                                       ' ' + test_helpers.repo_server), '.')
-
-        shutil.rmtree(repo_original)
-        test_helpers.runCommandInPath(('git clone ' +
-                                       test_helpers.repo_server + ' ' +
-                                       test_helpers.repo_checkout), '.')
-
-    def tearDown(self):
-        shutil.rmtree(test_helpers.repo_server)
-        shutil.rmtree(test_helpers.repo_checkout)
 
     def test_invalid_message_with_special_characters(self):
         test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("adding **kwargs support for the "
                                           "service and unit tests #363")
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("adding **kwargs support for the "
                                           "service and unit tests #363")
@@ -58,7 +35,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("adding **kwargs support for the "
                                           "service and unit tests #363")
@@ -70,12 +47,12 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         test_helpers.deployHookKit(self.CONFIG_FILE)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit! #123")
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit too! #123")
 
@@ -85,16 +62,16 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
     def test_invalid_message(self):
         test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a future invalid commit!")
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit! #123")
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a future invalid commit!")
         self.assertFalse(test_helpers.gitPush(),
@@ -103,16 +80,16 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
     def test_invalid_message_inbetween_push(self):
         test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a future invalid commit!")
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit! #123")
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         self.assertTrue(test_helpers.gitPush(),
                         "Pushing valid commit messages")
@@ -124,7 +101,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
     def test_commit_already_exists_in_other_branch_after_merge(self):
         test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit!")
         test_helpers.gitPush()
@@ -133,7 +110,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
                                       test_helpers.repo_checkout)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit as well")
 
@@ -143,21 +120,20 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
         self.assertTrue(result,
                         "Pushing sha1 that already exists in other branch")
 
-        test_helpers.runCommandInPath('git checkout -b master',
+        test_helpers.runCommandInPath('git checkout master',
                                       test_helpers.repo_checkout)
 
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit also!")
         test_helpers.gitPush()
 
-        test_helpers.runCommandInPath('git checkout -b test',
+        test_helpers.runCommandInPath('git checkout test',
                                       test_helpers.repo_checkout)
 
-        test_helpers.runCommandInPath('git rebase master',
+        test_helpers.runCommandInPath('git merge master',
                                       test_helpers.repo_checkout)
-
         result = test_helpers.runCommandInPath('git push origin test',
                                                test_helpers.repo_checkout)
 
@@ -167,7 +143,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
     def test_commit_already_exists_in_other_branch(self):
         test_helpers.deployHookKit(self.CONFIG_FILE)
         os.system(('echo foo >> ' + test_helpers.repo_checkout +
-                   '/testfile.txt'))
+                   '/testfile.py'))
 
         test_helpers.gitCommitWithMessage("I'm a valid commit!")
         test_helpers.gitPush()
@@ -180,6 +156,7 @@ class test_script_block_duplicate_commit_message(unittest.TestCase):
 
         self.assertTrue(result,
                         "Pushing sha1 that already exists in other branch")
+
 
 if __name__ == '__main__':
     unittest.main()

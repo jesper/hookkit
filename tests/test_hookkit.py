@@ -3,40 +3,18 @@
 import unittest
 import sys
 import os
-import shutil
 
 sys.path.append("..")
 import test_helpers
+from hook_script_test_case import hook_script_test_case
 
 
-class test_hookkit(unittest.TestCase):
-
-    def setUp(self):
-        # Let's set up a base repo
-        repo_original = 'test_original_repo'
-        os.mkdir(repo_original)
-        test_helpers.runCommandInPath('git init', repo_original)
-        test_helpers.runCommandInPath('touch testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git add testfile.txt', repo_original)
-        test_helpers.runCommandInPath('git commit -a -m adding:testfile.txt',
-                                      repo_original)
-
-        # Let's clone a server copy to work from in the future.
-        test_helpers.runCommandInPath(('git clone --bare ' + repo_original +
-                                       ' ' + test_helpers.repo_server), '.')
-        shutil.rmtree(repo_original)
-        test_helpers.runCommandInPath(('git clone ' +
-                                       test_helpers.repo_server + ' ' +
-                                       test_helpers.repo_checkout), '.')
-
-    def tearDown(self):
-        shutil.rmtree(test_helpers.repo_server)
-        shutil.rmtree(test_helpers.repo_checkout)
+class test_hookkit(hook_script_test_case):
 
     def test_multiple_same_scripts_for_one_hook_valid_second_script(self):
         test_helpers.deployHookKit('test_hookkit_config.json')
 
-        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
+        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.py')
         test_helpers.gitCommitWithMessage('Test message that should pass '
                                           'first hook: bar')
 
@@ -47,7 +25,7 @@ class test_hookkit(unittest.TestCase):
     def test_multiple_same_scripts_for_one_hook_valid_first_script(self):
         test_helpers.deployHookKit('test_hookkit_config.json')
 
-        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
+        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.py')
         test_helpers.gitCommitWithMessage('Test message that should pass '
                                           'first hook: foo')
 
@@ -58,7 +36,7 @@ class test_hookkit(unittest.TestCase):
     def test_multiple_same_scripts_both_valid(self):
         test_helpers.deployHookKit('test_hookkit_config.json')
 
-        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
+        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.py')
         test_helpers.gitCommitWithMessage('Test message that should pass '
                                           'both: foo bar')
 
@@ -68,7 +46,7 @@ class test_hookkit(unittest.TestCase):
     def test_multiple_same_scripts_both_invalid(self):
         test_helpers.deployHookKit('test_hookkit_config.json')
 
-        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
+        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.py')
         test_helpers.gitCommitWithMessage('Test message that should fail both '
                                           'hooks')
 
@@ -78,7 +56,7 @@ class test_hookkit(unittest.TestCase):
 
     def test_push_to_branch(self):
         test_helpers.deployHookKit('test_hookkit_config.json')
-        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
+        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.py')
         test_helpers.runCommandInPath('git checkout -b test_branch',
                                       test_helpers.repo_checkout)
         test_helpers.gitCommitWithMessage('foo bar commit to push to a branch')
@@ -87,7 +65,7 @@ class test_hookkit(unittest.TestCase):
 
     def test_push_branch_identical_to_master(self):
         test_helpers.deployHookKit('test_hookkit_config.json')
-        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.txt')
+        os.system('echo A >> ' + test_helpers.repo_checkout + '/testfile.py')
         test_helpers.gitCommitWithMessage('foo bar commit to push to a branch')
         test_helpers.gitPush()
         test_helpers.runCommandInPath('git checkout -b test_branch',
