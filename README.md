@@ -24,4 +24,4 @@ _hooks/_
 _tests/_
   * Tests for libhookkit as well as the hook-scripts.
 
-**Special thanks to Spreapdointe for sponsoring the development of Hookkit**
+**Special thanks to SpreadPointe for sponsoring the development of Hookkit**
