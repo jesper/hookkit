@@ -15,13 +15,13 @@ _hookkit.py_
 _libhookkit.py_
   * Configuration parsing & hook support
 
-_link-hooks.py_
+_link\_hooks.py_
   * Creates symlinks for all the hooks defined in hookkit.config to point to hook.py
 
 _hooks/_
   * Various git hooks that can be enabled.
 
 _tests/_
-  * Tests for libhookkit as well as the hook-scripts.
+  * Tests for libhookkit as well as the hook_scripts.
 
 **Special thanks to SpreadPointe for sponsoring the development of Hookkit**

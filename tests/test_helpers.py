@@ -8,14 +8,14 @@ repo_checkout = 'test_repo'
 
 #FIXME replace camelcase with snake case - to stay consistent with the rest
 def deployHookKit(config_file):
-    shutil.copy('../link-hooks.py',  repo_server + '/hooks/')
+    shutil.copy('../link_hooks.py',  repo_server + '/hooks/')
     shutil.copy('../hookkit.py',  repo_server + '/hooks/')
     shutil.copy('../libhookkit.py',  repo_server + '/hooks/')
-    shutil.copytree('../hook-scripts',  repo_server + '/hooks/hook-scripts')
+    shutil.copytree('../hook_scripts',  repo_server + '/hooks/hook_scripts')
     shutil.copy('data/' + config_file,
                 repo_server + '/hooks/hookkit_config.json')
 
-    runCommandInPath(sys.executable + ' link-hooks.py',
+    runCommandInPath(sys.executable + ' link_hooks.py',
                      repo_server + '/hooks/')
 
 

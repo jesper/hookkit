@@ -175,7 +175,7 @@ class LibHookKitConfiguration:
 
 #FIXME Implement PROPER error handling for when a hook script fails to load (!)
             if mode == HookScriptMode.HOOKKIT:
-                dynamic_script_module = __import__('hook-scripts.' + script,
+                dynamic_script_module = __import__('hook_scripts.' + script,
                                                    fromlist=[script])
 
                 dynamic_script_class = getattr(dynamic_script_module, script)
@@ -248,7 +248,7 @@ class HookScript(object):
         self.error_message = error_message
         self.label = label
 
-# Must be re-implemented by hook-scripts - this is what will be called!
+# Must be re-implemented by hook_scripts - this is what will be called!
     @abc.abstractmethod
     def run(self):
         print "!! You need to implement run() for" + self.file_name
@@ -263,7 +263,7 @@ class HookScript(object):
 class HookScriptLegacy(HookScript):
 
     def run(self, old_sha1, new_sha1, ref):
-        p = Popen(([sys.executable, 'hook-scripts/' + self.file_name] +
+        p = Popen((['hook_scripts/' + self.file_name] +
                   self.args.split(' ')), stdin=PIPE, stdout=PIPE, stderr=PIPE)
 
         [output, error] = p.communicate(old_sha1 + ' ' + new_sha1 + ' ' + ref)
