@@ -45,10 +45,25 @@ class LibHookKit:
                                            '--pretty=format:%s\n%b\n%N', sha1])
 
     @staticmethod
-    def get_files_affected_between_two_commits(old_sha1, new_sha1):
-        files_affected = LibHookKit.run_git_command(['diff', '--name-only',
-                                                     old_sha1, new_sha1])
-        return files_affected.split('\n')
+    def get_files_modified_between_two_commits(old_sha, new_sha):
+        return LibHookKit.get_files_affected_between_two_commits(old_sha,
+                                                                 new_sha,
+                                                                 "A,M")
+
+    @staticmethod
+    def get_files_affected_between_two_commits(old_sha, new_sha, filter=None):
+        command = ['log', '--pretty=format:', '--name-only',
+                   old_sha + ".." + new_sha]
+
+        if filter:
+            command.append("--diff-filter=%s" % filter)
+
+        files_raw = LibHookKit.run_git_command(command)
+
+        files = files_raw.split('\n')
+
+        # Need to strip empty elements (new lines)
+        return [file for file in files if file]
 
     @staticmethod
     def extract_git_repo(destination, sha1, path=None):
@@ -57,14 +72,15 @@ class LibHookKit:
         if path:
             command.append(path)
 
-        p = Popen(command, stderr=PIPE, stdout=PIPE)
+        git_proc = Popen(command, stderr=PIPE, stdout=PIPE)
 
-        p2 = Popen(['tar', 'x'], cwd=destination, stdin=p.stdout,
-                   stderr=PIPE, stdout=PIPE)
+        tar_proc = Popen(['tar', 'x'], cwd=destination, stdin=git_proc.stdout,
+                         stderr=PIPE, stdout=PIPE)
 
-        [output, error] = p2.communicate()
+        [output, error] = tar_proc.communicate()
+        git_proc.communicate()
 
-        if p2.returncode != 0:
+        if git_proc.returncode != 0 or tar_proc.returncode != 0:
             sys.stderr.write(error)
             return False
 

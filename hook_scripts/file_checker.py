@@ -7,7 +7,6 @@
 #      Author: Jesper Thomschutz (jesper@jespersaur.com)
 
 import sys
-import os
 import re
 import tempfile
 import subprocess
@@ -23,21 +22,16 @@ class file_checker(HookScript):
         file_regexp = self.regexp()
         file_checker = self.checker()
 
-        files = LibHookKit.get_files_affected_between_two_commits(old_sha1,
+        files = LibHookKit.get_files_modified_between_two_commits(old_sha1,
                                                                   new_sha1)
-
         for file_path in files:
             if re.search(file_regexp, file_path):
                 temp_path = tempfile.mkdtemp()
 
-                LibHookKit.extract_file_at_sha1_to_path(file_path, new_sha1,
-                                                        temp_path)
-
-# File may have been deleted in git - verify it's actually there.
-                if not os.path.exists(temp_path + '/' + file_path):
-                    #FIXME Having this extra rmtree is ugly - refactor!
-                    shutil.rmtree(temp_path)
-                    continue
+                if not LibHookKit.extract_file_at_sha1_to_path(file_path,
+                                                               new_sha1,
+                                                               temp_path):
+                    return False
 
                 p = subprocess.Popen([file_checker, file_path], cwd=temp_path,
                                      stdout=subprocess.PIPE,
