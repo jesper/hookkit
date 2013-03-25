@@ -21,6 +21,8 @@ Welcome to HookKit's documentation!
    license
    sponsors
 
+* `Bug reports & Feature Requests <https://github.com/jesper/hookkit/issues>`_
+
 
 Indices and tables
 ==================
