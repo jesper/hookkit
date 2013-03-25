@@ -1,5 +1,9 @@
 Hook Scripts
 =============
+By default, HookKit includes a handful of "Hook Scripts" to help you build \
+useful git hooks to suit your needs. They are meant to be used as generic \
+building blocks in conjunction with a :ref:`config-file`.
+
 
 :mod:`block_duplicate_commit_message`
 --------------------------------------------
