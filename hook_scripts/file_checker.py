@@ -1,10 +1,22 @@
-#   Hook Name: file_checker
-#   Arguments: file_filter_regexp file_checker_program
-# Description: Used for running a file checker against against
-#              files changed in a push. A coding style checker for example.
-#  Suggestion: Run on last_commit, as you typically only care about the "last"
-#              state of the files
-#      Author: Jesper Thomschutz (jesper@jespersaur.com)
+"""
+
+Description
+^^^^^^^^^^^
+Used for running a program against against files \
+changed in a push. A coding style checker for example.
+
+Arguments
+^^^^^^^^^
+<*file filter regexp*> <*program*>
+
+* **Example**: ``\.py$ pylint``
+    * Execute "pylint" on all files ending with ".py"
+
+Suggestion
+^^^^^^^^^^
+Run on last_commit, as you likely only care about the final state of the repo
+
+"""
 
 import sys
 import re
