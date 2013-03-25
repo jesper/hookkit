@@ -1,4 +1,4 @@
-"""
+r"""
 
 Description
 ^^^^^^^^^^^
@@ -30,18 +30,19 @@ from libhookkit import HookScript, LibHookKit
 
 class repo_checker(HookScript):
 
-    def run(self, old_sha1, new_sha1, ref):
+    def run(self, _old_sha1, new_sha1, _ref):
         temp_path = tempfile.mkdtemp()
         LibHookKit.extract_repo_at_sha1_to_path(new_sha1, temp_path)
 
-        p = subprocess.Popen(self.args.split(), cwd=temp_path,
-                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        proc = subprocess.Popen(self.args.split(), cwd=temp_path,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        [output, error] = p.communicate()
+        [output, error] = proc.communicate()
 
         shutil.rmtree(temp_path)
 
-        if p.returncode != 0:
+        if proc.returncode != 0:
+            print output
             print error
             return False
 

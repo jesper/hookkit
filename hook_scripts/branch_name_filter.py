@@ -1,4 +1,4 @@
-"""
+r"""
 
 Description
 ^^^^^^^^^^^
@@ -26,6 +26,6 @@ from libhookkit import HookScript
 
 class branch_name_filter(HookScript):
 
-    def run(self, old_sha1, new_sha1, ref):
+    def run(self, _old_sha1, _new_sha1, ref):
         branch_name = ref.split('refs/heads')[1]
         return re.search(self.args, branch_name)

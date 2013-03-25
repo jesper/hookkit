@@ -1,4 +1,4 @@
-"""
+r"""
 
 Description
 ^^^^^^^^^^^
@@ -30,9 +30,9 @@ from libhookkit import HookScript, LibHookKit
 
 class file_checker(HookScript):
 
-    def run(self, old_sha1, new_sha1, ref):
+    def run(self, old_sha1, new_sha1, _ref):
         file_regexp = self.regexp()
-        file_checker = self.checker()
+        checker = self.checker()
 
         files = LibHookKit.get_files_modified_between_two_commits(old_sha1,
                                                                   new_sha1)
@@ -45,16 +45,17 @@ class file_checker(HookScript):
                                                                temp_path):
                     return False
 
-                p = subprocess.Popen([file_checker, file_path], cwd=temp_path,
-                                     stdout=subprocess.PIPE,
-                                     stderr=subprocess.PIPE)
+                proc = subprocess.Popen([checker, file_path], cwd=temp_path,
+                                        stdout=subprocess.PIPE,
+                                        stderr=subprocess.PIPE)
 
-                [output, error] = p.communicate()
+                [output, error] = proc.communicate()
 
                 shutil.rmtree(temp_path)
 
-                if p.returncode != 0:
+                if proc.returncode != 0:
                     print output
+                    print error
                     return False
 
         return True

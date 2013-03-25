@@ -1,4 +1,4 @@
-"""
+r"""
 
 Description
 ^^^^^^^^^^^
@@ -34,7 +34,7 @@ class block_duplicate_commit_message(HookScript):
 
         return False
 
-    def run(self, old_sha1, new_sha1, ref):
+    def run(self, old_sha1, new_sha1, _ref):
         sha1s = LibHookKit.get_sha1_list_between_commits(old_sha1, new_sha1)
 
         for sha1 in sha1s:
