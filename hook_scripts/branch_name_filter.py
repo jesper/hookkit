@@ -1,8 +1,21 @@
-#   Hook Name: branch_name_filter
-#   Arguments: name-filter-regexp
-# Description: Useful for enforcing a special branch naming scheme
-#  Suggestion: Run on last_commit as a pre-preceive hook
-#      Author: Jesper Thomschutz (jesper@jespersaur.com)
+"""
+
+Description
+^^^^^^^^^^^
+Enforce a specific branch naming scheme.
+
+Arguments
+^^^^^^^^^
+<*branch name regexp*>
+
+* **Example**: ``master|\d+-\w+-\w+``
+    * Allow pushes to branches named "master" or "<number>-<word>-<word>"
+
+Suggestion
+^^^^^^^^^^
+Run on last_commit as a pre-receive hook.
+
+"""
 
 import sys
 import re

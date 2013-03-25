@@ -1,8 +1,22 @@
-#   Hook Name: scan_commit_field
-#   Arguments: commit_field regexp
-# Description: Used to regexp commit fields. Good for author whitelists, etc.
-#  Suggestion: Run on each_commit as a pre-receive or update hook
-#      Author: Jesper Thomschutz (jesper@jespersaur.com)
+"""
+
+Description
+^^^^^^^^^^^
+Search a commit field (author email, commit message) for a specific pattern.
+Useful for enforcing things such as issue refs, author email whitelists, etc.
+
+Arguments
+^^^^^^^^^
+<*commit field*> <*regexp*>
+
+* **Example**: ``message (^|\s)#(\d+)(\s|$)``
+    * Scans the commit messages for a issue ID, for example: " #123 ".
+
+Suggestion
+^^^^^^^^^^
+Run on each_commit as a pre-receive or update hook.
+
+"""
 
 import sys
 import re

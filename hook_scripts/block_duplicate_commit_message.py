@@ -1,8 +1,18 @@
-#   Hook Name: block_duplicate_commit_message
-#   Arguments: none
-# Description: Block commit messages that already exist in the repo.
-#  Suggestion: Run on each_commit as a pre-receive or update hook
-#      Author: Jesper Thomschutz (jesper@jespersaur.com)
+"""
+
+Description
+^^^^^^^^^^^
+Block commit messages that already exist in the repo.
+
+Arguments
+^^^^^^^^^
+(none)
+
+Suggestion
+^^^^^^^^^^
+Run on each_commit as a pre-receive or update hook.
+
+"""
 
 import sys
 

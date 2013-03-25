@@ -1,8 +1,21 @@
-#   Hook Name: ping-url
-#   Arguments: URL
-# Description: Used to GET a url. Useful for nofiying services such as CI, etc.
-#  Suggestion: Run on last_commit as a post-preceive hook
-#      Author: Jesper Thomschutz (jesper@jespersaur.com)
+"""
+
+Description
+^^^^^^^^^^^
+GET a specific webpage. Useful for notifying web services of a git push.
+
+Arguments
+^^^^^^^^^
+<*URL*>
+
+* **Example**: ``http://jenkins.company.com/git/notifyCommit?url=git/foo.git``
+    * Grab the Jenkins URL for new git push notifications.
+
+Suggestion
+^^^^^^^^^^
+Run on last_commit as a post-receive hook.
+
+"""
 
 import sys
 import urllib2

@@ -1,10 +1,23 @@
-#   Hook Name: repo_checker
-#   Arguments: checker_program
-# Description: Used for executing a checker program against all of a repo.
-#              For example, running unit tests.
-#  Suggestion: Run on last_commit, as you typically only care about the "last"
-#              state of the files
-#      Author: Jesper Thomschutz (jesper@jespersaur.com)
+"""
+
+Description
+^^^^^^^^^^^
+Used for running a program against an entire repository.
+Executing unit tests for example.
+If the command returns a non-zero exit code, the push is rejected.
+
+Arguments
+^^^^^^^^^
+<*command to execute*>
+
+* **Example**: ``bin/run_tests.sh``
+    * Execute bin/run_tests.sh.
+
+Suggestion
+^^^^^^^^^^
+Run on last_commit, as you likely only care about the final state of the repo.
+
+"""
 
 import sys
 import tempfile
