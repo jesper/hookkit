@@ -15,49 +15,108 @@ DEFAULT_CONFIG_FILE_PATH = os.path.join(os.getcwd(), config_path)
 
 
 class LibHookKit:
+    """Convenience functions to be used in :ref:`hook-scripts`"""
 
     @staticmethod
     def run_git_command(args):
-        p = Popen(['git'] + args, stdout=PIPE, stderr=PIPE)
-        [result, error] = p.communicate()
-        if p.returncode != 0:
+        """ Run a git command
+
+        :param args: The arguments to pass to the git executable.
+        :type args: list
+        :returns:  string or False -- string is the git output in the
+                   case of success, False if the command failed.
+
+        """
+
+        proc = Popen(['git'] + args, stdout=PIPE, stderr=PIPE)
+        [result, error] = proc.communicate()
+        if proc.returncode != 0:
             print >> sys.stderr, 'Error running: git ' + ' '.join(args) + error
             return False
 
         return result
 
     @staticmethod
-    def get_sha1_list_between_commits(old_sha1, new_sha1):
+    def get_sha1_list_between_commits(old_sha, new_sha):
+        """ Get the SHA-1s of all commits between two commit SHA-1s
 
-        if old_sha1 == new_sha1:
-            return [new_sha1]
+        :param old_sha: The earlier SHA-1
+        :type old_sha: string
+        :param new_sha: The later SHA-1
+        :type new_sha: string
+        :returns:  list -- all SHA-1s between old_sha and new_sha
+
+        """
+
+        if old_sha == new_sha:
+            return [new_sha]
 
         sha1s = LibHookKit.run_git_command(['log', '--pretty=format:%H',
                                             '--no-merges',
-                                            old_sha1 + '..' + new_sha1])
+                                            old_sha + '..' + new_sha])
         if sha1s == '':
             return None
         else:
             return sha1s.split('\n')
 
     @staticmethod
-    def get_commit_author_email(sha1):
+    def get_commit_author_email(sha):
+        """ Get the author email field for a commit SHA-1
+
+        :param sha: The commit SHA-1
+        :type sha: string
+        :returns:  string -- The email address
+
+        """
+
         return LibHookKit.run_git_command(['log', '-1',
-                                           '--pretty=format:%ae', sha1])
+                                           '--pretty=format:%ae', sha])
 
     @staticmethod
-    def get_commit_message(sha1):
+    def get_commit_message(sha):
+        """ Get the commit message for a commit SHA-1
+
+        :param sha: The commit SHA-1
+        :type sha: string
+        :returns:  string -- The commit message
+
+        """
         return LibHookKit.run_git_command(['log', '-1',
-                                           '--pretty=format:%s\n%b\n%N', sha1])
+                                           '--pretty=format:%s\n%b\n%N', sha])
 
     @staticmethod
     def get_files_modified_between_two_commits(old_sha, new_sha):
+        """ Get files added or modified between two commits. *Omits deletions.*
+
+        :param old_sha: The earlier SHA-1
+        :type old_sha: string
+        :param new_sha: The later SHA-1
+        :type new_sha: string
+        :returns:  list -- The files which were modified or added
+                   between old_sha and new_sha
+
+        """
         return LibHookKit.get_files_affected_between_two_commits(old_sha,
                                                                  new_sha,
                                                                  "A,M")
 
     @staticmethod
     def get_files_affected_between_two_commits(old_sha, new_sha, filter=None):
+        """ Get files affected between two commits.
+
+        :param old_sha: The earlier SHA-1
+        :type old_sha: string
+        :param new_sha: The later SHA-1
+        :type new_sha: string
+        :param filter: The filter for what "affected" should mean.
+                       Uses the same syntax as `git --diff-filter
+                       <http://git-scm.com/docs/git-diff-tree>`_.
+                       In the form of a comma separated list.
+        :type filter: string
+        :returns:  list -- The files which were modified or added
+                   between old_sha and new_sha
+
+        """
         command = ['log', '--pretty=format:', '--name-only',
                    old_sha + ".." + new_sha]
 
@@ -72,8 +131,8 @@ class LibHookKit:
         return [file for file in files if file]
 
     @staticmethod
-    def extract_git_repo(destination, sha1, path=None):
-        command = ['git', 'archive', sha1]
+    def extract_git_repo(destination, sha, path=None):
+        command = ['git', 'archive', sha]
 
         if path:
             command.append(path)
@@ -94,20 +153,40 @@ class LibHookKit:
         return True
 
     @staticmethod
-    def extract_file_at_sha1_to_path(file_name, sha1, destination):
-        if not LibHookKit.extract_git_repo(destination, sha1, file_name):
+    def extract_file_at_sha1_to_path(file_name, sha, destination):
+        """ Extract a file from git
+
+        :param sha: The commit SHA-1 to extract.
+        :type sha: string
+        :param destination: destination
+        :type destination: string
+        :param file_name: The file to extract
+        :type file_name: string
+        :returns:  bool -- True for success, False for failure.
+
+        """
+        if not LibHookKit.extract_git_repo(destination, sha, file_name):
             sys.stderr.write('Error while trying to extract the file:' +
-                             file_name + ' from sha1:' + sha1 + ' to path:' +
+                             file_name + ' from sha:' + sha + ' to path:' +
                              destination + '\n')
             return False
 
         return True
 
     @staticmethod
-    def extract_repo_at_sha1_to_path(sha1, destination):
-        if not LibHookKit.extract_git_repo(destination, sha1):
+    def extract_repo_at_sha1_to_path(sha, destination):
+        """ Extract a git repository
+
+        :param sha: The commit SHA-1 to extract.
+        :type sha: string
+        :param destination: destination
+        :type destination: string
+        :returns:  bool -- True for success, False for failure.
+
+        """
+        if not LibHookKit.extract_git_repo(destination, sha):
             sys.stderr.write('Error while trying to extract the repository ' +
-                             'at sha1:' + sha1 + ' to path:' + destination +
+                             'at sha:' + sha + ' to path:' + destination +
                              '\n')
             return False
 
@@ -119,6 +198,13 @@ class LibHookKit:
 
     @staticmethod
     def is_program_available(program):
+        """ Check if a program is available to be executed
+
+        :param program: The executable to look for
+        :type sha: string
+        :returns:  bool -- True for success, False for failure.
+
+        """
 
         # "Program finding" code below is based on a Stackoverflow post by Jay:
         # http://stackoverflow.com/a/377028
@@ -285,11 +371,11 @@ class HookScript(object):
 
 class HookScriptLegacy(HookScript):
 
-    def run(self, old_sha1, new_sha1, ref):
+    def run(self, old_sha, new_sha, ref):
         p = Popen((['hook_scripts/' + self.file_name] +
                   self.args.split(' ')), stdin=PIPE, stdout=PIPE, stderr=PIPE)
 
-        [output, error] = p.communicate(old_sha1 + ' ' + new_sha1 + ' ' + ref)
+        [output, error] = p.communicate(old_sha + ' ' + new_sha + ' ' + ref)
         return_code = p.returncode
 
         if return_code == 0:

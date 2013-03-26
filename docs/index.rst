@@ -8,15 +8,15 @@ Welcome to HookKit's documentation!
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    introduction
    installation
    config_file
+   hook_scripts
    install_hooks
    hookkit
    libhookkit
-   hook_scripts
    source_and_contributing
    license
    sponsors
