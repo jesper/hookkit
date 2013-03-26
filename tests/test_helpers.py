@@ -8,14 +8,10 @@ repo_checkout = 'test_repo'
 
 #FIXME replace camelcase with snake case - to stay consistent with the rest
 def deployHookKit(config_file):
-    shutil.copy('../link_hooks.py',  repo_server + '/hooks/')
-    shutil.copy('../hookkit.py',  repo_server + '/hooks/')
-    shutil.copy('../libhookkit.py',  repo_server + '/hooks/')
-    shutil.copytree('../hook_scripts',  repo_server + '/hooks/hook_scripts')
     shutil.copy('data/' + config_file,
                 repo_server + '/hooks/hookkit_config.json')
 
-    runCommandInPath(sys.executable + ' link_hooks.py',
+    runCommandInPath(sys.executable + ' ../../../install_hooks.py',
                      repo_server + '/hooks/')
 
 
@@ -33,6 +29,7 @@ def runCommandInPath(command, path):
 
 
 def runCommandArrayInPath(command, path):
+
     p = Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE, cwd=path)
 
     [output, error] = p.communicate()

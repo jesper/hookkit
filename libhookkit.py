@@ -4,8 +4,14 @@ import sys
 import os
 import abc
 
-DEFAULT_CONFIG_FILE_PATH = (os.path.dirname(os.path.abspath(__file__)) +
-                            '/hookkit_config.json')
+
+config_path = "hooks/hookkit_config.json"
+
+# If running in a non-bare repo, then we need to look inside ".git/hooks".
+if os.path.isdir('.git'):
+    config_path = os.path.join(".git", config_path)
+
+DEFAULT_CONFIG_FILE_PATH = os.path.join(os.getcwd(), config_path)
 
 
 class LibHookKit:

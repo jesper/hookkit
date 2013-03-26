@@ -1,3 +1,5 @@
+.. _libhookkit:
+
 libhookkit
 =================
 

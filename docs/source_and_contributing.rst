@@ -1,3 +1,5 @@
+.. _sourcecode:
+
 Source code & Contributing
 ==========================
 

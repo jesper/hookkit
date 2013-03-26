@@ -8,9 +8,10 @@ sys.path.insert(0, os.path.dirname(__file__))
 import libhookkit
 
 if __name__ == '__main__':
+
     config = libhookkit.LibHookKitConfiguration()
 
-    hooks = config.get_available_hooks()
+    hooks = config.get_available_hooks("hookkit_config.json")
 
     if len(hooks) == 0:
         print 'No hooks defined in "hookkit_config.json"; aborting.'
@@ -27,7 +28,8 @@ if __name__ == '__main__':
             continue
 
         try:
-            os.symlink('hookkit.py', hook)
+            os.symlink(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    'hookkit.py'), hook)
         except:
             print 'Failed link: ' + hook + '. Verify you have write access.'
             exit_code += 1

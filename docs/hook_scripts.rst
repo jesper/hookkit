@@ -1,3 +1,5 @@
+.. _hook-scripts:
+
 Hook Scripts
 =============
 By default, HookKit includes a handful of "Hook Scripts" to help you build \

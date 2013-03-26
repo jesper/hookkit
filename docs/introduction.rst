@@ -22,8 +22,8 @@ How
 ^^^
 HookKit is broken down into five main components:
 
-#. **hookkit** - The facade program that git interacts with; manages & dispatches your git hook scripts.
-#. **link_hooks** - Program is used to deploy HookKit to your git repository.
-#. **hook_scripts** - A directory of generic scripts which you should use to build your hooks.
-#. **hookkit_config.json** - The configration file which defines which hook_scripts you're using, when they should be executed, and how they're configured.
-#. **libhookkit** - Functions used by hookkit and hook_scripts to interact with git and other convenience functions.
+#. :ref:`hookkit` - Facade that git interacts with; manages & dispatches your git hook scripts.
+#. :ref:`link-hooks` - Used to deploy HookKit to your git repository.
+#. :ref:`hook-scripts` - Directory of generic scripts which you should use to build your hooks.
+#. :ref:`config-file` - Defines which hook_scripts you're using, when they should be executed, and how they're configured.
+#. :ref:`libhookkit` - Functions used by hookkit and hook_scripts to interact with git and other convenience functions.

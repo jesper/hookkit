@@ -13,7 +13,7 @@ Welcome to HookKit's documentation!
    introduction
    installation
    config_file
-   link_hooks
+   install_hooks
    hookkit
    libhookkit
    hook_scripts
