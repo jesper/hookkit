@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>libhookkit.py &mdash; HookKit  documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HookKit  documentation" href="index.html" />
+    <link rel="next" title="Source code &amp; Contributing" href="source_and_contributing.html" />
+    <link rel="prev" title="hookkit.py" href="hookkit.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="source_and_contributing.html" title="Source code &amp; Contributing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="hookkit.html" title="hookkit.py"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="hookkit.html"
+                        title="previous chapter">hookkit.py</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="source_and_contributing.html"
+                        title="next chapter">Source code &amp; Contributing</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/libhookkit.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="libhookkit-py">
+<span id="libhookkit"></span><h1>libhookkit.py<a class="headerlink" href="#libhookkit-py" title="Permalink to this headline">¶</a></h1>
+<p><em>libhookkit.py</em> manages configuration handling as well as defining internal functions and datatypes.</p>
+<p>It also manages LibHookKit - which should be utilized by <a class="reference internal" href="hook_scripts.html#hook-scripts"><em>Hook Scripts</em></a> whenever possible.</p>
+<p>This API reference is intended for <a class="reference internal" href="hook_scripts.html#hook-scripts"><em>Hook Scripts</em></a> developers:</p>
+<span class="target" id="module-libhookkit"></span><dl class="class">
+<dt id="libhookkit.LibHookKit">
+<em class="property">class </em><tt class="descclassname">libhookkit.</tt><tt class="descname">LibHookKit</tt><a class="reference internal" href="_modules/libhookkit.html#LibHookKit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience functions to be used in <a class="reference internal" href="hook_scripts.html#hook-scripts"><em>Hook Scripts</em></a></p>
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.extract_file_at_sha1_to_path">
+<em class="property">static </em><tt class="descname">extract_file_at_sha1_to_path</tt><big>(</big><em>file_name</em>, <em>sha</em>, <em>destination</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.extract_file_at_sha1_to_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.extract_file_at_sha1_to_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a file from git</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sha</strong> (<em>string</em>) &#8211; The commit SHA-1 to extract.</li>
+<li><strong>destination</strong> (<em>string</em>) &#8211; destination</li>
+<li><strong>file_name</strong> (<em>string</em>) &#8211; The file to extract</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool &#8211; True for success, False for failure.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.extract_repo_at_sha1_to_path">
+<em class="property">static </em><tt class="descname">extract_repo_at_sha1_to_path</tt><big>(</big><em>sha</em>, <em>destination</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.extract_repo_at_sha1_to_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.extract_repo_at_sha1_to_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a git repository</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sha</strong> (<em>string</em>) &#8211; The commit SHA-1 to extract.</li>
+<li><strong>destination</strong> (<em>string</em>) &#8211; destination</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool &#8211; True for success, False for failure.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.get_commit_author_email">
+<em class="property">static </em><tt class="descname">get_commit_author_email</tt><big>(</big><em>sha</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.get_commit_author_email"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.get_commit_author_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the author email field for a commit SHA-1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sha</strong> (<em>string</em>) &#8211; The commit SHA-1</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">string &#8211; The email address</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.get_commit_message">
+<em class="property">static </em><tt class="descname">get_commit_message</tt><big>(</big><em>sha</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.get_commit_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.get_commit_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the commit message for a commit SHA-1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sha</strong> (<em>string</em>) &#8211; The commit SHA-1</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">string &#8211; The commit message</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.get_files_affected_between_two_commits">
+<em class="property">static </em><tt class="descname">get_files_affected_between_two_commits</tt><big>(</big><em>old_sha</em>, <em>new_sha</em>, <em>filter=None</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.get_files_affected_between_two_commits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.get_files_affected_between_two_commits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get files affected between two commits.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>old_sha</strong> (<em>string</em>) &#8211; The earlier SHA-1</li>
+<li><strong>new_sha</strong> (<em>string</em>) &#8211; The later SHA-1</li>
+<li><strong>filter</strong> (<em>string</em>) &#8211; The filter for what &#8220;affected&#8221; should mean.
+Uses the same syntax as <a class="reference external" href="http://git-scm.com/docs/git-diff-tree">git &#8211;diff-filter</a>.
+In the form of a comma separated list.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list &#8211; The files which were modified or added
+between old_sha and new_sha</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.get_files_modified_between_two_commits">
+<em class="property">static </em><tt class="descname">get_files_modified_between_two_commits</tt><big>(</big><em>old_sha</em>, <em>new_sha</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.get_files_modified_between_two_commits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.get_files_modified_between_two_commits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get files added or modified between two commits. <em>Omits deletions.</em></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>old_sha</strong> (<em>string</em>) &#8211; The earlier SHA-1</li>
+<li><strong>new_sha</strong> (<em>string</em>) &#8211; The later SHA-1</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list &#8211; The files which were modified or added
+between old_sha and new_sha</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.get_sha1_list_between_commits">
+<em class="property">static </em><tt class="descname">get_sha1_list_between_commits</tt><big>(</big><em>old_sha</em>, <em>new_sha</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.get_sha1_list_between_commits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.get_sha1_list_between_commits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the SHA-1s of all commits between two commit SHA-1s</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>old_sha</strong> (<em>string</em>) &#8211; The earlier SHA-1</li>
+<li><strong>new_sha</strong> (<em>string</em>) &#8211; The later SHA-1</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">list &#8211; all SHA-1s between old_sha and new_sha</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.is_program_available">
+<em class="property">static </em><tt class="descname">is_program_available</tt><big>(</big><em>program</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.is_program_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.is_program_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a program is available to be executed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>program</strong> &#8211; The executable to look for</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">bool &#8211; True for success, False for failure.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="libhookkit.LibHookKit.run_git_command">
+<em class="property">static </em><tt class="descname">run_git_command</tt><big>(</big><em>args</em><big>)</big><a class="reference internal" href="_modules/libhookkit.html#LibHookKit.run_git_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libhookkit.LibHookKit.run_git_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a git command</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>list</em>) &#8211; The arguments to pass to the git executable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">string or False &#8211; string is the git output in the
+case of success, False if the command failed.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="source_and_contributing.html" title="Source code &amp; Contributing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="hookkit.html" title="hookkit.py"
+             >previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jesper Thomschutz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2pre.
+    </div>
+  </body>
+</html>

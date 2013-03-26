@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Hook Scripts &mdash; HookKit  documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HookKit  documentation" href="index.html" />
+    <link rel="next" title="install_hooks.py" href="install_hooks.html" />
+    <link rel="prev" title="Configuration File" href="config_file.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install_hooks.html" title="install_hooks.py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="config_file.html" title="Configuration File"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Hook Scripts</a><ul>
+<li><a class="reference internal" href="#module-hook_scripts.block_duplicate_commit_message"><tt class="docutils literal"><span class="pre">block_duplicate_commit_message</span></tt></a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#arguments">Arguments</a></li>
+<li><a class="reference internal" href="#suggestion">Suggestion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-hook_scripts.branch_name_filter"><tt class="docutils literal"><span class="pre">branch_name_filter</span></tt></a><ul>
+<li><a class="reference internal" href="#id2">Description</a></li>
+<li><a class="reference internal" href="#id3">Arguments</a></li>
+<li><a class="reference internal" href="#id4">Suggestion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-hook_scripts.file_checker"><tt class="docutils literal"><span class="pre">file_checker</span></tt></a><ul>
+<li><a class="reference internal" href="#id5">Description</a></li>
+<li><a class="reference internal" href="#id6">Arguments</a></li>
+<li><a class="reference internal" href="#id7">Suggestion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-hook_scripts.ping_url"><tt class="docutils literal"><span class="pre">ping_url</span></tt></a><ul>
+<li><a class="reference internal" href="#id8">Description</a></li>
+<li><a class="reference internal" href="#id9">Arguments</a></li>
+<li><a class="reference internal" href="#id10">Suggestion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-hook_scripts.repo_checker"><tt class="docutils literal"><span class="pre">repo_checker</span></tt></a><ul>
+<li><a class="reference internal" href="#id11">Description</a></li>
+<li><a class="reference internal" href="#id12">Arguments</a></li>
+<li><a class="reference internal" href="#id13">Suggestion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-hook_scripts.scan_commit_field"><tt class="docutils literal"><span class="pre">scan_commit_field</span></tt></a><ul>
+<li><a class="reference internal" href="#id14">Description</a></li>
+<li><a class="reference internal" href="#id15">Arguments</a></li>
+<li><a class="reference internal" href="#id16">Suggestion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="config_file.html"
+                        title="previous chapter">Configuration File</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install_hooks.html"
+                        title="next chapter">install_hooks.py</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/hook_scripts.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="hook-scripts">
+<span id="id1"></span><h1>Hook Scripts<a class="headerlink" href="#hook-scripts" title="Permalink to this headline">¶</a></h1>
+<p>By default, HookKit includes a handful of &#8220;Hook Scripts&#8221; to help you build useful git hooks to suit your needs. They are meant to be used as generic building blocks in conjunction with a <a class="reference internal" href="config_file.html#config-file"><em>Configuration File</em></a>.</p>
+<div class="section" id="module-hook_scripts.block_duplicate_commit_message">
+<span id="block-duplicate-commit-message"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">block_duplicate_commit_message</span></tt><a class="headerlink" href="#module-hook_scripts.block_duplicate_commit_message" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="description">
+<h3>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
+<p>Block commit messages that already exist in the repo.</p>
+</div>
+<div class="section" id="arguments">
+<h3>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h3>
+<p>(none)</p>
+</div>
+<div class="section" id="suggestion">
+<h3>Suggestion<a class="headerlink" href="#suggestion" title="Permalink to this headline">¶</a></h3>
+<p>Run on each_commit as a pre-receive or update hook.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="module-hook_scripts.branch_name_filter">
+<span id="branch-name-filter"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">branch_name_filter</span></tt><a class="headerlink" href="#module-hook_scripts.branch_name_filter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Enforce a specific branch naming scheme.</p>
+</div>
+<div class="section" id="id3">
+<h3>Arguments<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>&lt;<em>branch name regexp</em>&gt;</p>
+<ul>
+<li><dl class="first docutils">
+<dt><strong>Example</strong>: <tt class="docutils literal"><span class="pre">master|\d+-\w+-\w+</span></tt></dt>
+<dd><ul class="first last simple">
+<li>Allow pushes to branches named &#8220;master&#8221; or &#8220;&lt;number&gt;-&lt;word&gt;-&lt;word&gt;&#8221;</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>Suggestion<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Run on last_commit as a pre-receive hook.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="module-hook_scripts.file_checker">
+<span id="file-checker"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">file_checker</span></tt><a class="headerlink" href="#module-hook_scripts.file_checker" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Description<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Used for running a program against against files changed in a push. A coding style checker for example.</p>
+</div>
+<div class="section" id="id6">
+<h3>Arguments<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>&lt;<em>file filter regexp</em>&gt; &lt;<em>program</em>&gt;</p>
+<ul>
+<li><dl class="first docutils">
+<dt><strong>Example</strong>: <tt class="docutils literal"><span class="pre">\.py$</span> <span class="pre">pylint</span></tt></dt>
+<dd><ul class="first last simple">
+<li>Execute &#8220;pylint&#8221; on all files ending with &#8221;.py&#8221;</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>Suggestion<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Run on last_commit, as you likely only care about the final state of the repo</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="module-hook_scripts.ping_url">
+<span id="ping-url"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">ping_url</span></tt><a class="headerlink" href="#module-hook_scripts.ping_url" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>Description<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>GET a specific webpage. Useful for notifying web services of a git push.</p>
+</div>
+<div class="section" id="id9">
+<h3>Arguments<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>&lt;<em>URL</em>&gt;</p>
+<ul>
+<li><dl class="first docutils">
+<dt><strong>Example</strong>: <tt class="docutils literal"><span class="pre">http://jenkins.company.com/git/notifyCommit?url=git/foo.git</span></tt></dt>
+<dd><ul class="first last simple">
+<li>Grab the Jenkins URL for new git push notifications.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>Suggestion<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>Run on last_commit as a post-receive hook.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="module-hook_scripts.repo_checker">
+<span id="repo-checker"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">repo_checker</span></tt><a class="headerlink" href="#module-hook_scripts.repo_checker" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h3>Description<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>Used for running a program against an entire repository.
+Executing unit tests for example.
+If the command returns a non-zero exit code, the push is rejected.</p>
+</div>
+<div class="section" id="id12">
+<h3>Arguments<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>&lt;<em>command to execute</em>&gt;</p>
+<ul>
+<li><dl class="first docutils">
+<dt><strong>Example</strong>: <tt class="docutils literal"><span class="pre">bin/run_tests.sh</span></tt></dt>
+<dd><ul class="first last simple">
+<li>Execute bin/run_tests.sh.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>Suggestion<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>Run on last_commit, as you likely only care about the final state of the repo.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="module-hook_scripts.scan_commit_field">
+<span id="scan-commit-field"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">scan_commit_field</span></tt><a class="headerlink" href="#module-hook_scripts.scan_commit_field" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h3>Description<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>Search a commit field (author email, commit message) for a specific pattern.
+Useful for enforcing things such as issue refs, author email whitelists, etc.</p>
+</div>
+<div class="section" id="id15">
+<h3>Arguments<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>&lt;<em>commit field</em>&gt; &lt;<em>regexp</em>&gt;</p>
+<ul>
+<li><dl class="first docutils">
+<dt><strong>Example</strong>: <tt class="docutils literal"><span class="pre">message</span> <span class="pre">(^|\s)#(\d+)(\s|$)</span></tt></dt>
+<dd><ul class="first last simple">
+<li>Scans the commit messages for a issue ID, for example: &#8221; #123 &#8221;.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h3>Suggestion<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>Run on each_commit as a pre-receive or update hook.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="install_hooks.html" title="install_hooks.py"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="config_file.html" title="Configuration File"
+             >previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jesper Thomschutz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2pre.
+    </div>
+  </body>
+</html>

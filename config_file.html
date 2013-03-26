@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuration File &mdash; HookKit  documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HookKit  documentation" href="index.html" />
+    <link rel="next" title="Hook Scripts" href="hook_scripts.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="hook_scripts.html" title="Hook Scripts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hook_scripts.html"
+                        title="next chapter">Hook Scripts</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/config_file.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configuration-file">
+<span id="config-file"></span><h1>Configuration File<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h1>
+<p>The HookKit configuration file (hookkit_config.json) is the core of how your instance of HookKit will operate.</p>
+<p>It glues the <a class="reference internal" href="hook_scripts.html#hook-scripts"><em>Hook Scripts</em></a> to their arguments as well as specifying when and how they should be executed.</p>
+<p>As the config file extension suggests, the config file is simply plain <a class="reference external" href="http://en.wikipedia.org/wiki/JSON">JSON</a>.</p>
+<p>JSON makes a good format for the configuration for at least two reasons:</p>
+<ol class="arabic simple">
+<li>Human readable &amp; easy to edit. There are plenty of web-based JSON editors available to ease the process &amp; avoid forgetting a brace.</li>
+<li>Plain text which can be committed to git &amp; diffed in a straight forward way.</li>
+</ol>
+<p>Writing a config file may seem a little intimidating at first, but it&#8217;s actually quite straight forward.
+To get started, it might be easiest to start from a sample config file template, found under &#8220;sample_configs/&#8221; in HookKit.</p>
+<p>All config files must include the &#8220;hooks&#8221; section:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;hooks&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>hooks</em> should contain the stages for which you&#8217;d like to execute your hooks.
+The stages for which you can execute hooks are explained well in the <a class="reference external" href="http://git-scm.com/book/en/Customizing-Git-Git-Hooks#Server-Side-Hooks">git documentation</a>.</p>
+<p>In general, you&#8217;ll likely want to use:</p>
+<ul class="simple">
+<li>update - Used as a &#8220;gate&#8221;. When you want to check/inspect commits <strong>before</strong> they are written to the repo, rejecting them if they don&#8217;t adhere to your criteria/requirements.</li>
+<li>post-receive - For notification. This is triggered after the commits are actually pushed to the branch.</li>
+</ul>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;hooks&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;update&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;post-receive&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Note that in this example we have both &#8220;update&#8221; and &#8220;post-receive&#8221; sections. It&#8217;s perfectly fine to omit one of them entirely if it&#8217;s not needed.</em></p>
+<p>Next up, we need to populate each stage with the rules that we&#8217;d like to utilize.
+Each rule should consist of a short and descriptive label, as well as the following sub-elements:</p>
+<ul class="simple">
+<li>script: hook-script to execute. The hook-scripts available are listed on the <a class="reference internal" href="hook_scripts.html#hook-scripts"><em>Hook Scripts</em></a> page.</li>
+<li>error_message: Error message to show the user if the hook fails</li>
+<li>args: hook-script specific arguments. The arguments a hook script requires is documented on the <a class="reference internal" href="hook_scripts.html#hook-scripts"><em>Hook Scripts</em></a> page.</li>
+<li>frequency: either <em>each_commit</em> or <em>last_commit</em><ul>
+<li><em>each_commit</em> will run the script on each commit. Good for strict checks per commit.</li>
+<li><em>last_commit</em> will only run the script on the last (final) commit. Good for if you only care about the &#8220;final&#8221; state of a repo after a push for example.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;hooks&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;update&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;Pyflakes Code Check&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;script&quot;</span><span class="o">:</span><span class="s2">&quot;file_checker&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_message&quot;</span><span class="o">:</span><span class="s2">&quot;Code failed the Pyflakes code check&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;args&quot;</span><span class="o">:</span><span class="s2">&quot;\\.py$ pyflakes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;frequency&quot;</span><span class="o">:</span><span class="s2">&quot;last_commit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="s2">&quot;hookkit&quot;</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;Email Whitelist&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;script&quot;</span><span class="o">:</span><span class="s2">&quot;scan_commit_field&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_message&quot;</span><span class="o">:</span><span class="s2">&quot;Commit author e-mail address is not in the whitelist&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;args&quot;</span><span class="o">:</span><span class="s2">&quot;author_email (developer1|developer2|developern)@company.com&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;frequency&quot;</span><span class="o">:</span><span class="s2">&quot;each_commit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="s2">&quot;hookkit&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;post-receive&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;Notify Redmine&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;script&quot;</span><span class="o">:</span><span class="s2">&quot;ping_url&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error_message&quot;</span><span class="o">:</span><span class="s2">&quot;Unable to notify redmine.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;args&quot;</span><span class="o">:</span><span class="s2">&quot;https://company.com/redmine/sys/fetch_changesets?key=foobar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;frequency&quot;</span><span class="o">:</span><span class="s2">&quot;last_commit&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="s2">&quot;hookkit&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Note that escaping slahes in the arguments is required!</em></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="hook_scripts.html" title="Hook Scripts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jesper Thomschutz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2pre.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; HookKit  documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="HookKit  documentation" href="index.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Welcome to HookKit’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to HookKit’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#what">What</a></li>
+<li><a class="reference internal" href="#why">Why</a></li>
+<li><a class="reference internal" href="#how">How</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to HookKit&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter">Installation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what">
+<h2>What<a class="headerlink" href="#what" title="Permalink to this headline">¶</a></h2>
+<p>HookKit is a toolkit for managing and deploying <a class="reference external" href="http://git-scm.com/book/en/Customizing-Git-Git-Hooks">git hooks</a>.</p>
+<p>Git hooks are programs that are automatically executed at specific points in the git work-flow. To simplify things, we&#8217;ll categorize them into &#8220;pre&#8217; hooks and &#8220;post&#8221; hooks.</p>
+<p>&#8220;Pre&#8221; hooks are run when a user is about to &#8220;write&#8221; a commit to either their local system or push their changes to a server. In these cases, it&#8217;s useful to run a program (hook) to verify that certain conditions are met. This way, you can reject a commit that doesn&#8217;t adhere to a coding style, or pass tests for example.</p>
+<p>&#8220;Post&#8221; hooks happen after a commit has been &#8220;written&#8221; to user&#8217;s workstation or pushed to a server. This is useful for notifying people or other automated systems of changes which have been made available. Triggering a package build &amp; release for example.</p>
+</div>
+<div class="section" id="why">
+<h2>Why<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Because if you <strong>can</strong> automate it, you <strong>should</strong> automate it.</li>
+<li>The earlier you find a bug, the <a class="reference external" href="http://www.riceconsulting.com/public_pdf/STBC-WM.pdf">cheaper</a>  it is to fix it.</li>
+<li><a class="reference external" href="http://blogs.msdn.com/b/oldnewthing/archive/2006/01/24/516808.aspx">Polling</a> <a class="reference external" href="http://fatalfailure.wordpress.com/2011/12/28/triggering-jenkins-jobs-from-the-scm-push-to-avoid-the-evil-polling/">is</a> <a class="reference external" href="http://kohsuke.org/2011/12/01/polling-must-die-triggering-jenkins-builds-from-a-git-hook/">evil.</a></li>
+<li><em>Fast</em> feedback is fun &amp; useful. Waiting for an email from the CI system is too <em>slow</em>.</li>
+</ul>
+</div>
+<div class="section" id="how">
+<h2>How<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h2>
+<p>HookKit is broken down into five main components:</p>
+<ol class="arabic simple">
+<li><a class="reference internal" href="hookkit.html#hookkit"><em>hookkit.py</em></a> - Facade that git interacts with; manages &amp; dispatches your git hook scripts.</li>
+<li><a class="reference internal" href="install_hooks.html#install-hooks"><em>install_hooks.py</em></a> - Used to deploy HookKit to your git repository.</li>
+<li><a class="reference internal" href="hook_scripts.html#hook-scripts"><em>Hook Scripts</em></a> - Directory of generic scripts which you should use to build your hooks.</li>
+<li><a class="reference internal" href="config_file.html#config-file"><em>Configuration File</em></a> - Defines which hook_scripts you&#8217;re using, when they should be executed, and how they&#8217;re configured.</li>
+<li><a class="reference internal" href="libhookkit.html#libhookkit"><em>libhookkit.py</em></a> - Functions used by hookkit and hook_scripts to interact with git and other convenience functions.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to HookKit’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">HookKit  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Jesper Thomschutz.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2pre.
+    </div>
+  </body>
+</html>
