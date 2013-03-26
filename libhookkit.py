@@ -87,6 +87,7 @@ class LibHookKit:
         git_proc.communicate()
 
         if git_proc.returncode != 0 or tar_proc.returncode != 0:
+            sys.stderr.write(output)
             sys.stderr.write(error)
             return False
 
@@ -122,7 +123,7 @@ class LibHookKit:
         # "Program finding" code below is based on a Stackoverflow post by Jay:
         # http://stackoverflow.com/a/377028
 
-        file_path, file_name = os.path.split(program)
+        file_path = os.path.split(program)[0]
 
         if file_path:
             if LibHookKit.is_exe(program):

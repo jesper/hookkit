@@ -7,8 +7,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 import libhookkit
 
-if __name__ == '__main__':
 
+def main():
     config = libhookkit.LibHookKitConfiguration()
 
     hooks = config.get_available_hooks("hookkit_config.json")
@@ -35,3 +35,7 @@ if __name__ == '__main__':
             exit_code += 1
 
     exit(exit_code)
+
+
+if __name__ == '__main__':
+    main()
