@@ -13,6 +13,24 @@ class test_script_scan_commit_field(hook_script_test_case):
 
     CONFIG_FILE = 'test_script_scan_commit_field_config.json'
 
+    def test_local_invalid_message(self):
+        test_helpers.deployLocalHookKit(self.CONFIG_FILE)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.py'))
+
+        result = test_helpers.gitCommitWithMessage("I'm an invalid commit!")
+        self.assertFalse(result, 'Pushing invalid commit to local repo')
+
+    def test_local_valid_message(self):
+        test_helpers.deployHookKit(self.CONFIG_FILE)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.py'))
+
+        result = test_helpers.gitCommitWithMessage("I'm a valid commit! #123")
+        self.assertTrue(result, "Pushing a valid commit message to local repo")
+
     def test_valid_message(self):
         test_helpers.deployHookKit(self.CONFIG_FILE)
 

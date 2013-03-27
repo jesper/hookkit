@@ -37,6 +37,25 @@ class LibHookKit:
         return result
 
     @staticmethod
+    def get_current_branch():
+        """ Get the current branch
+
+        :returns:  string -- The current branch name
+
+        """
+        return LibHookKit.run_git_command(['rev-parse', '--abrev--ref',
+                                           'HEAD'])
+
+    @staticmethod
+    def get_latest_sha():
+        """ Get the latest (most recent) commit SHA-1
+
+        :returns:  string -- The latest SHA-1
+
+        """
+        return LibHookKit.run_git_command(['log', '-1', '--pretty=format:%H'])
+
+    @staticmethod
     def get_sha1_list_between_commits(old_sha, new_sha):
         """ Get the SHA-1s of all commits between two commit SHA-1s
 

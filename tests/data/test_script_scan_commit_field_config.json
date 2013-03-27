@@ -8,6 +8,15 @@
         "frequency":"each_commit",
         "mode":"hookkit"
       }
+    },
+   "commit-msg": {
+      "Redmine Issue ID local repo": {
+        "script":"scan_commit_field",
+        "error_message":"Commit message does not contain an issue ID! (#123)",
+        "args":"message (^|\\s)#(\\d+)(\\s|$)",
+        "frequency":"each_commit",
+        "mode":"hookkit"
+      }
     }
   }
 }

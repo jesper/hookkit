@@ -15,6 +15,14 @@ def deployHookKit(config_file):
                      repo_server + '/hooks/')
 
 
+def deployLocalHookKit(config_file):
+    shutil.copy('data/' + config_file,
+                repo_checkout + '/.git/hooks/hookkit_config.json')
+
+    runCommandInPath(sys.executable + ' ../../../../install_hooks.py',
+                     repo_checkout + '/.git/hooks/')
+
+
 def gitCommitWithMessage(message):
     return runCommandArrayInPath(['git', 'commit', '-a', '-m', message],
                                  repo_checkout)

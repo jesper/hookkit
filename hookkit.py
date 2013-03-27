@@ -105,8 +105,14 @@ def main():
     if not load_scripts():
         exit_with_error_message('\n!!! ABORTED !!!\n')
 
-    if get_active_hook() == 'update':
+    active_hook = get_active_hook()
+
+    if active_hook == 'update':
         trigger_scripts(sys.argv[2], sys.argv[3], sys.argv[1])
+    if active_hook == 'commit-msg' or active_hook == 'post-commit':
+        sha = libhookkit.LibHookKit.get_latest_sha()
+        branch = libhookkit.LibHookKit.get_current_branch()
+        trigger_scripts(sha, sha, "refs/heads/%s" % branch)
     else:
         for line in sys.stdin.xreadlines():
             arg_array = line.strip().split(' ')
