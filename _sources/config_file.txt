@@ -33,10 +33,10 @@ All config files must include the "hooks" section:
 *hooks* should contain the stages for which you'd like to execute your hooks.
 The stages for which you can execute hooks are explained well in the `git documentation <http://git-scm.com/book/en/Customizing-Git-Git-Hooks#Server-Side-Hooks>`_.
 
-In general, you'll likely want to use:
+The following hook stages are currently supported:
 
-* update - Used as a "gate". When you want to check/inspect commits **before** they are written to the repo, rejecting them if they don't adhere to your criteria/requirements.
-* post-receive - For notification. This is triggered after the commits are actually pushed to the branch.
+* update *(remote repo)* **or** commit-msg *(local repo)* - Used as a "gate", when you want to check/inspect commits **before** they are written to the repo, rejecting them if they don't adhere to your criteria/requirements.
+* post-receive *(remote repo)* **or** post-commit *(local repo)* - For notification; triggered after the commits are actually pushed to the branch.
 
 
 .. code-block:: javascript

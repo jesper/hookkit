@@ -101,10 +101,10 @@ To get started, it might be easiest to start from a sample config file template,
 </div>
 <p><em>hooks</em> should contain the stages for which you&#8217;d like to execute your hooks.
 The stages for which you can execute hooks are explained well in the <a class="reference external" href="http://git-scm.com/book/en/Customizing-Git-Git-Hooks#Server-Side-Hooks">git documentation</a>.</p>
-<p>In general, you&#8217;ll likely want to use:</p>
+<p>The following hook stages are currently supported:</p>
 <ul class="simple">
-<li>update - Used as a &#8220;gate&#8221;. When you want to check/inspect commits <strong>before</strong> they are written to the repo, rejecting them if they don&#8217;t adhere to your criteria/requirements.</li>
-<li>post-receive - For notification. This is triggered after the commits are actually pushed to the branch.</li>
+<li>update <em>(remote repo)</em> <strong>or</strong> commit-msg <em>(local repo)</em> - Used as a &#8220;gate&#8221;, when you want to check/inspect commits <strong>before</strong> they are written to the repo, rejecting them if they don&#8217;t adhere to your criteria/requirements.</li>
+<li>post-receive <em>(remote repo)</em> <strong>or</strong> post-commit <em>(local repo)</em> - For notification; triggered after the commits are actually pushed to the branch.</li>
 </ul>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;hooks&quot;</span><span class="o">:</span> <span class="p">{</span>
