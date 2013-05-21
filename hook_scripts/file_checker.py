@@ -36,6 +36,10 @@ class file_checker(HookScript):
 
         files = LibHookKit.get_files_modified_between_two_commits(old_sha1,
                                                                   new_sha1)
+
+        files = LibHookKit.filter_files_that_still_exist_at_sha1(files,
+                                                                 new_sha1)
+
         for file_path in files:
             if re.search(file_regexp, file_path):
                 temp_path = tempfile.mkdtemp()

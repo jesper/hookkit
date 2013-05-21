@@ -216,6 +216,26 @@ class LibHookKit:
         return os.path.isfile(path) and os.access(path, os.X_OK)
 
     @staticmethod
+    def filter_files_that_still_exist_at_sha1(files, sha1):
+        """ Filter file list input to only include those that exist at
+            a particular SHA-1
+
+        :param files: File list to filter
+        :type files: list
+        :param sha: SHA-1 to find the files in.
+        :type sha: string
+        :returns:  list -- Filtered file list
+
+        """
+        exists = []
+
+        for file in files:
+            if LibHookKit.run_git_command(['ls-tree', sha1, file]):
+                exists.append(file)
+
+        return exists
+
+    @staticmethod
     def is_program_available(program):
         """ Check if a program is available to be executed
 

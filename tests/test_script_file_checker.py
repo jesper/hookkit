@@ -123,6 +123,47 @@ class test_script_file_checker(hook_script_test_case):
         self.assertTrue(test_helpers.gitPush(),
                         'Pushing a delete of a well formatted Python file')
 
+    def test_move_and_edit_invalid_code(self):
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
+
+        os.system(('echo "print "valid indentation rocks"" >> ' +
+                  test_helpers.repo_checkout + '/testfile.py'))
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'a valid file')
+
+        test_helpers.runCommandInPath('git mv testfile.py testfile2.py',
+                                      test_helpers.repo_checkout)
+
+        os.system(('echo "  print "invalid indentation makes me sad"" >> ' +
+                  test_helpers.repo_checkout + '/testfile2.py'))
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'moving an invalid file')
+
+        self.assertFalse(test_helpers.gitPush(),
+                         'Pushing a move of a badly formatted Python file')
+
+    def test_move_and_edit_valid_code(self):
+        test_helpers.deployHookKit('test_script_file_checker_config.json')
+
+        os.system(('echo "print "valid indentation rocks"" >> ' +
+                  test_helpers.repo_checkout + '/testfile.py'))
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'a valid file')
+
+        test_helpers.runCommandInPath('git mv testfile.py testfile2.py',
+                                      test_helpers.repo_checkout)
+
+        os.system(('echo "print "valid indentation rocks again"" >> ' +
+                  test_helpers.repo_checkout + '/testfile2.py'))
+
+        test_helpers.gitCommitWithMessage('Testing File Checker with '
+                                          'moving a valid file')
+
+        self.assertTrue(test_helpers.gitPush(),
+                        'Pushing a move of a well formatted Python file')
 
 if __name__ == '__main__':
     unittest.main()
