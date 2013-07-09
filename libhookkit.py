@@ -71,7 +71,6 @@ class LibHookKit:
             return [new_sha]
 
         sha1s = LibHookKit.run_git_command(['log', '--pretty=format:%H',
-                                            '--no-merges',
                                             old_sha + '..' + new_sha])
         if sha1s == '':
             return None
