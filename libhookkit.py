@@ -56,22 +56,29 @@ class LibHookKit:
         return LibHookKit.run_git_command(['log', '-1', '--pretty=format:%H'])
 
     @staticmethod
-    def get_sha1_list_between_commits(old_sha, new_sha):
+    def get_sha1_list_between_commits(old_sha, new_sha, include_merges=False):
         """ Get the SHA-1s of all commits between two commit SHA-1s
 
         :param old_sha: The earlier SHA-1
         :type old_sha: string
         :param new_sha: The later SHA-1
         :type new_sha: string
-        :returns:  list -- all SHA-1s between old_sha and new_sha
+        :param include_merges: Whether to include merge commits
+        :type include_merges: bool
+         :returns:  list -- all SHA-1s between old_sha and new_sha
 
         """
 
         if old_sha == new_sha:
             return [new_sha]
 
-        sha1s = LibHookKit.run_git_command(['log', '--pretty=format:%H',
-                                            old_sha + '..' + new_sha])
+        command = ['log', '--pretty=format:%H', old_sha + '..' + new_sha]
+
+        if not include_merges:
+            command.append("--no-merges")
+
+        sha1s = LibHookKit.run_git_command(command)
+
         if sha1s == '':
             return None
         else:
