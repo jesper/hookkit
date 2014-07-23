@@ -157,6 +157,35 @@ class test_script_block_duplicate_commit_message(hook_script_test_case):
         self.assertTrue(result,
                         "Pushing sha1 that already exists in other branch")
 
+    def test_commit_merged_from_branch(self):
+        test_helpers.deployHookKit(self.CONFIG_FILE)
+
+        test_helpers.runCommandInPath('git checkout -b test',
+                                      test_helpers.repo_checkout)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile.py'))
+
+        test_helpers.gitCommitWithMessage("I'm going to be a dupe commit!")
+
+        test_helpers.runCommandInPath('git checkout master',
+                                      test_helpers.repo_checkout)
+
+        os.system(('echo foo >> ' + test_helpers.repo_checkout +
+                   '/testfile2.py'))
+
+        test_helpers.runCommandInPath('git add testfile2.py',
+                                      test_helpers.repo_checkout)
+
+        test_helpers.gitCommitWithMessage("I'm going to be a dupe commit!")
+
+        test_helpers.runCommandInPath('git merge test',
+                                      test_helpers.repo_checkout)
+
+        result = test_helpers.gitPush()
+        self.assertFalse(result,
+                         "Pushing sha1 that already exists in other branch")
+
 
 if __name__ == '__main__':
     unittest.main()
